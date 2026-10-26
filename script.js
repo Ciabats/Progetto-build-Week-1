@@ -18,7 +18,7 @@ const QUESTIONS = [
     question: "Cosa significa l'acronimo CPU?",
     correct_answer: "Central Processing Unit",
     incorrect_answers: [
-      "Central Process Unit", 
+      "Central Process Unit",
       "Computer Personal Unit",
       "Central Processor Unit",
     ],
@@ -100,3 +100,132 @@ let timerId = null;
    - handleTimeUp() per il tempo scaduto
    - advance() per andare alla domanda successiva o ai risultati
 */
+
+// render(): capire come scegliere la schermata da mostrare.
+
+// Funzione render:
+// 1. Controlla il valore di currentScreen
+// 2. Se è "welcome", mostra la schermata iniziale
+// 3. Se è "quiz", mostra la schermata del quiz
+// 4. Se è "results", mostra la schermata finale
+
+//richiamo il contenitore app
+
+const app = document.querySelector("#app");
+
+
+
+function render() {
+
+  //svuoto gli elementi e indirizzo la pagina.
+
+  app.innerHTML = "";
+
+  switch (currentScreen) {
+    case "welcome":
+      renderWelcome();
+      break;
+
+    case "quiz":
+      renderQuiz();
+      break;
+
+    default:
+      renderResults();
+  }
+}
+
+
+// schermata iniziale: far funzionare il pulsante Inizia.
+
+function renderWelcome() {
+
+  //titolo
+
+  const header = document.createElement("h1");
+
+  header.textContent = "Benvenuto al tuo esame";
+
+  header.id = "headerWelcome";
+  header.className = "headers";
+
+  app.appendChild(header);
+
+  //paragrafo
+
+  const paragraph = document.createElement("p");
+
+  paragraph.textContent = "Una serie di 10 domande sul mondo dell' informatica e del web. Per ogni domanda hai 20 secondi di tempo";
+
+  paragraph.id = "paragraphWelcome";
+  paragraph.className = "paragraph";
+
+  app.appendChild(paragraph);
+
+  //Lista
+
+  const list = document.createElement("ul");
+
+  list.id = "listWelcome";
+  list.className = "list";
+
+  //elementi della lista 
+
+  const element1 = document.createElement("li");
+  element1.textContent = "Ogni domanda è a tempo e può ricevere una sola risposta.";
+  list.appendChild(element1);
+
+  const element2 = document.createElement("li");
+  element2.textContent = "Una volta cliccata una risposta, la domanda è chiusa.";
+  list.appendChild(element2);
+
+  const element3 = document.createElement("li");
+  element3.textContent = "Il quiz dura circa 3 minuti.";
+  list.appendChild(element3);
+
+  //inseriamo la lista nel contenitore
+
+  app.appendChild(list);
+
+  //button inizia
+
+  const button = document.createElement("button");
+
+  button.textContent = "Inizia";
+
+  button.id = "buttonIdWelcome";
+  button.className = "button";
+
+  app.appendChild(button);
+
+  //gestione click
+  button.addEventListener("click", () => {
+    currentScreen = "quiz";
+    render();
+  });
+
+}
+
+render();
+
+
+// Mostrare la prima domanda: recuperarla dall'array e inserirla nel DOM.
+
+
+
+// Gestire le risposte: rilevare il click e controllare se è corretto.
+
+
+
+// Passare alle domande successive: aggiornare l'indice e verificare quando sono finite.
+
+
+
+// Mostrare il risultato finale: calcolare la percentuale, il verdetto.
+
+
+
+// Aggiungere il timer: gestire avvio, arresto e scadenza.
+
+
+// test finale.
