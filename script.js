@@ -90,7 +90,7 @@ let currentQuestion = 0;
 let score = 0;
 let timerId = null;
 let shuffledQuestions = []; // variabili mescolate per la partita in corso
-
+let rispostaSelezionata = false;
 /* SCRIVI QUI LE TUE FUNZIONI:
    - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
    - renderWelcome() per la schermata iniziale con button Inizia
@@ -340,6 +340,117 @@ function shuffleArray(array) {
     risultato[j] = temporaneo;
   }
   return risultato;
+}
+
+
+//advance() manageClick() timer ()
+
+function manageClick(button, answer, currentQuestion) {
+  //blocchiamo successivi click
+  if (rispostaSelezionata) {
+    return;
+  }
+  rispostaSelezionata = true;
+  if (answer === currentQuestion.correct_answer) {
+    // Risposta corretta
+    score++;
+    button.classList.add("correct");
+  } else {
+    // Risposta sbagliata
+  }
+
+}
+
+//pagina risultato.
+
+function renderResults() {
+
+  const app = document.querySelector(`#app`);
+  app.textContent = " ";
+
+  const title = document.createElement(`h1`);
+  title.classList.add(`tileWelcome`)
+  title.textContent = `Risultato`;
+  app.appendChild(title);
+
+
+  const incorrect = TOTAL_QUESTIONS - score;
+  const displayScore = Math.round((score / TOTAL_QUESTIONS) * 100);
+  const displayResult = document.createElement(`p`); //creo il tag dove visualizzare il risultato
+  displayResult.classList.add(`score`)
+  displayResult.textContent = `${displayScore}%`; //
+  app.appendChild(displayResult); //metto a schermo il risultato
+
+  const subTitle = document.createElement(`h4`);
+  subTitle.classList.add(`subTitleResults`);
+  subTitle.textContent = `hai completato il quiz`;
+  app.appendChild(subTitle);
+
+  /* servE il n.ro di doamande-totali(TOTAL_QUESTIONS) e quello del punteggio realizzato(score).
+  le risposte sbagliate me le calcolo sottraendo TOTAL_QUESTIONS - score */
+
+
+
+  //controllo il risultato del quiz 
+
+  if (displayScore >= PASS_THRESHOLD) {
+    const promoted = document.createElement(`p`);
+    promoted.classList.add(`promoted`);  //...se maggiore del 60%
+    promoted.textContent = `Promosso`;
+    app.appendChild(promoted);
+  } else {
+    const failed = document.createElement(`p`);
+    failed.classList.add(`failed`);
+    failed.textContent = `Bocciato`; //.... se minore del 60%
+    app.appendChild(failed);
+  }
+
+  //aggiorna stato barre 
+  const containerbar = document.createElement(`div`);
+  const containerbar2 = document.createElement(`div`);
+  const correctBar = document.createElement(`div`); //creo il div progressBar delle risposte corrette
+  const incorrectBar = document.createElement(`div`); //creo il div progressBar delle risposte sbagliaste
+
+  //applico le classi
+  correctBar.classList.add(`correctBar`); //aggiungo classe per successiva stitlizzazione
+  incorrectBar.classList.add(`incorrectBar`); //aggiungo classe per successiva stitlizzazione
+  containerbar.classList.add(`container`); //aggiungo classe per successiva stitlizzazione
+  containerbar2.classList.add(`container`); //aggiungo classe per successiva stitlizzazione
+
+
+  correctBar.style.width = (score / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
+  incorrectBar.style.width = (incorrect / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
+  app.appendChild(containerbar);
+  app.appendChild(containerbar2);
+  containerbar.appendChild(correctBar);
+  containerbar2.appendChild(incorrectBar);
+
+  //a fianco delle progressbar metto a schermo il numero di errori/risposte giuste
+  const correctNumb = document.createElement(`span`);
+  const incorrectNumb = document.createElement(`span`);
+
+  correctNumb.textContent = `${score}/${TOTAL_QUESTIONS}`; //metto a schermo il numero di rispote giuste
+  incorrectNumb.textContent = `${incorrect}/${TOTAL_QUESTIONS}`; //metto a schermo il numero di rispote sbagliate
+  correctNumb.classList.add(`correct`);
+  incorrectNumb.classList.add(`wrong`);
+  containerbar.appendChild(correctNumb);
+  containerbar2.appendChild(incorrectNumb);
+
+
+  //passo al button per il reset del quiz
+  const reset = document.createElement(`button`) //creo il button per il reset del quiz
+  reset.id = "reset"; //assegno id 
+  reset.textContent = "Ricomincia"; //testo all'interno del button reset
+  app.appendChild(reset);
+  reset.addEventListener(`click`, function () { //aggiungo evento al suo click 
+    currentScreen = "welcome"; //gli faccio cambiare il valore della variabile currentScreen
+
+    // alert(`Quiz resettato, pronto per ricominciare?`)
+
+    render()
+
+  })
+
 }
 
 render();
