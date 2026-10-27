@@ -18,7 +18,7 @@ const QUESTIONS = [
     question: "Cosa significa l'acronimo CPU?",
     correct_answer: "Central Processing Unit",
     incorrect_answers: [
-      "Central Process Unit", 
+      "Central Process Unit",
       "Computer Personal Unit",
       "Central Processor Unit",
     ],
@@ -87,7 +87,7 @@ const TIMER_DURATION = 20;     // secondi per ogni domanda
 /* Stato globale */
 let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
 let currentQuestion = 0;
-let score = 0;
+let score = 4;
 let timerId = null;
 
 /* SCRIVI QUI LE TUE FUNZIONI:
@@ -100,3 +100,88 @@ let timerId = null;
    - handleTimeUp() per il tempo scaduto
    - advance() per andare alla domanda successiva o ai risultati
 */
+
+
+function renderResults() {
+
+  const app = document.querySelector(`#app`);
+  app.textContent = " ";
+
+  const title = document.createElement(`h1`);
+  title.textContent = `Risultato`;
+  app.appendChild(title);
+
+  
+  const incorrect = TOTAL_QUESTIONS - score;
+  const dipslayScore = Math.round((score / TOTAL_QUESTIONS) * 100);
+  const displayWrong = Math.round((incorrect / TOTAL_QUESTIONS) * 100); //mi calcolo in percentuale le risposte sbagliate
+  const displayResult = document.createElement(`p`); //creo il tag dove visualizzare il risultato
+  displayResult.textContent = `${dipslayScore}%`; //
+  app.appendChild(displayResult); //metto a schermo il risultato
+
+  const subTitle = document.createElement(`h4`);
+  subTitle.textContent = `hai completato il quiz`;
+  app.appendChild(subTitle);
+
+  /* servE il n.ro di doamande-totali(TOTAL_QUESTIONS) e quello del punteggio realizzato(score).
+  le risposte sbagliate me le calcolo sottraendo TOTAL_QUESTIONS - score */
+
+
+
+  //controllo il risultato del quiz 
+
+  if (dipslayScore >= PASS_THRESHOLD) {
+    const promoted = document.createElement(`p`);
+    promoted.classList.add(`promoted`);  //...se maggiore del 60%
+    promoted.textContent = `Promosso`
+    displayResult.appendChild(promoted);
+  } else {
+    const failed = document.createElement(`p`);
+    failed.classList.add(`failed`);
+    failed.textContent = `Bocciato`; //.... se minore del 60%
+    displayResult.appendChild(failed);
+  }
+
+  //aggiorna stato barre 
+  const containerbar = document.createElement(`div`);
+  const containerbar2 = document.createElement(`div`);
+  const correctBar = document.createElement(`div`); //creo il div progressBar delle risposte corrette
+  const incorrectBar = document.createElement(`div`); //creo il div progressBar delle risposte sbagliaste
+
+  //applico le classi
+  correctBar.classList.add(`correctBar`);
+  incorrectBar.classList.add(`incorrectBar`);
+  containerbar.classList.add(`container`)
+  containerbar2.classList.add(`container`)
+
+
+  correctBar.style.width = (score / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
+  incorrectBar.style.width = (incorrect / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
+  displayResult.appendChild(containerbar);
+  containerbar.appendChild(correctBar);
+  containerbar2.appendChild(incorrectBar);
+
+  //a fianco delle progressbar metto a schermo il numero di errori/risposte giuste
+  const correctNumb = document.createElement(`span`);
+  const incorrectNumb = document.createElement(`span`);
+
+  correctNumb.textContent = `${score}/${TOTAL_QUESTIONS}`; //metto a schermo il numero di rispote giuste
+  incorrectNumb.textContent = `${incorrect}/${TOTAL_QUESTIONS}`; //metto a schermo il numero di rispote sbagliate
+  containerbar.appendChild(correctNumb);
+  containerbar2.appendChild(incorrectNumb);
+
+
+  //passo al button per il reset del quiz
+  const reset = document.createElement(`button`) //creo il button per il reset del quiz
+  reset.id = "reset"
+  app.appendChild(reset);
+  reset.addEventListener(`click`, function () {
+    currentScreen = "welcome";
+    alert(`Quiz resettato, pronto per ricominciare?`)
+
+    render()
+  })
+
+}
+
+renderResults();
