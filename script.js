@@ -102,6 +102,7 @@ let rispostaSelezionata = false;
    - advance() per andare alla domanda successiva o ai risultati
 */
 
+
 // funziona crea elementi
 
 function creaElemento(tag, classe, testo) {
@@ -433,7 +434,11 @@ function renderResults() {
   correctNumb.classList.add(`correct`);
   incorrectNumb.classList.add(`wrong`);
   containerbar.appendChild(correctNumb);
+
   containerbar2.appendChild(incorrectNumb);
+
+
+
 
 
   //passo al button per il reset del quiz
@@ -442,7 +447,7 @@ function renderResults() {
   reset.textContent = "Ricomincia"; //testo all'interno del button reset
   app.appendChild(reset);
   reset.addEventListener(`click`, function () { //aggiungo evento al suo click 
-    currentScreen = "welcome"; //gli faccio cambiare il valore della variabile currentScreen
+
     alert(`Quiz resettato, pronto per ricominciare?`);
     render();
   })
@@ -450,3 +455,4 @@ function renderResults() {
 }
 
 renderResults();
+
