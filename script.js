@@ -257,7 +257,7 @@ function renderQuiz() {
   intestazione.appendChild(contatore);
   intestazione.appendChild(punteggio);
 
-  // Barra di avanzamento
+  // Barra di avanzamento 
   const barra = creaElemento("div", "progressTrack");
   const riempimento = creaElemento("div", "progressFill");
 
@@ -265,7 +265,7 @@ function renderQuiz() {
 
   // Riquadro della domanda
   const riquadroDomanda = creaElemento("div", "questionBox");
-  const testoDomanda = creaElemento("h2", "", domanda.question);
+  const testoDomanda = creaElemento("h2", "questionText", domanda.question);
 
   riquadroDomanda.appendChild(testoDomanda);
 
@@ -359,7 +359,7 @@ function manageClick(button, answer, currentQuestion) {
     // Risposta sbagliata
   }
 
-}
+} 
 
 //pagina risultato.
 
@@ -388,7 +388,6 @@ function renderResults() {
 
   /* servE il n.ro di doamande-totali(TOTAL_QUESTIONS) e quello del punteggio realizzato(score).
   le risposte sbagliate me le calcolo sottraendo TOTAL_QUESTIONS - score */
-
 
 
   //controllo il risultato del quiz 
@@ -444,14 +443,10 @@ function renderResults() {
   app.appendChild(reset);
   reset.addEventListener(`click`, function () { //aggiungo evento al suo click 
     currentScreen = "welcome"; //gli faccio cambiare il valore della variabile currentScreen
-
-    // alert(`Quiz resettato, pronto per ricominciare?`)
-
-    render()
-
+    alert(`Quiz resettato, pronto per ricominciare?`);
+    render();
   })
 
 }
 
-render();
-
+renderResults();
