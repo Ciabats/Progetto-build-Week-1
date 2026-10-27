@@ -78,17 +78,12 @@ const QUESTIONS = [
   },
 ];
 
-/* Costanti del quiz */
-const TOTAL_QUESTIONS = QUESTIONS.length;
-const PASS_THRESHOLD = 60;     // percentuale minima per "Promosso"
-const FEEDBACK_DELAY = 1500;   // ms di attesa dopo risposta prima di avanzare
-const TIMER_DURATION = 20;     // secondi per ogni domanda
 
-/* Stato globale */
-let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
-let currentQuestion = 0;
-let score = 0;
-let timerId = null;
+
+
+
+
+
 
 /* SCRIVI QUI LE TUE FUNZIONI:
    - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
@@ -100,3 +95,306 @@ let timerId = null;
    - handleTimeUp() per il tempo scaduto
    - advance() per andare alla domanda successiva o ai risultati
 */
+
+/* Costanti del quiz */
+const TOTAL_QUESTIONS = QUESTIONS.length;
+const PASS_THRESHOLD = 60;     // percentuale minima per "Promosso"
+const FEEDBACK_DELAY = 1500;   // ms di attesa dopo risposta prima di avanzare
+const TIMER_DURATION = 20;     // secondi per ogni domanda
+
+/* Stato globale */
+let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
+let currentQuestion = 0;
+let score = 0;
+let timerId = null;
+let shuffledQuestions = []; // variabili mescolate per la partita in corso
+
+/* SCRIVI QUI LE TUE FUNZIONI:
+   - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
+   - renderWelcome() per la schermata iniziale con button Inizia
+   - renderQuiz() per la domanda corrente con i button risposta + counter + timer
+   - renderResults() per la schermata finale con percentuale + barre + verdetto
+   - startTimer() / stopTimer() per il countdown
+   - handleAnswer(button, answer) per il click su una risposta
+   - handleTimeUp() per il tempo scaduto
+   - advance() per andare alla domanda successiva o ai risultati
+*/
+
+// funziona crea elementi
+
+function creaElemento(tag, classe, testo) {
+  const elemento = document.createElement(tag);
+
+  elemento.className = classe;
+
+  if (testo !== undefined) {
+    elemento.textContent = testo;
+  }
+
+  return elemento;
+}
+
+//richiamo il contenitore app
+
+const app = document.querySelector("#app");
+
+// render(): capire come scegliere la schermata da mostrare.
+
+// Funzione render:
+// 1. Controlla il valore di currentScreen
+// 2. Se è "welcome", mostra la schermata iniziale
+// 3. Se è "quiz", mostra la schermata del quiz
+// 4. Se è "results", mostra la schermata finale
+
+function render() {
+
+  //svuoto gli elementi e indirizzo la pagina.
+
+  while (app.firstChild) {
+    app.removeChild(app.firstChild);
+  }
+
+  switch (currentScreen) {
+    case "welcome":
+      renderWelcome();
+      break;
+
+    case "quiz":
+      renderQuiz();
+      break;
+
+    default:
+      renderResults();
+  }
+}
+
+// schermata iniziale: far funzionare il pulsante Inizia.
+
+function renderWelcome() {
+
+  // Titolo
+  const header = creaElemento(/*fatto*/
+    "h1",
+    "headers",
+    "Benvenuto al tuo esame"
+  );
+
+  header.id = "headerWelcome";
+  app.appendChild(header);
+
+  // Paragrafo
+  const paragraph = creaElemento(/*fatto*/
+    "p",
+    "paragraph",
+    "Una serie di 10 domande sul mondo dell'informatica e del web. Per ogni domanda hai 20 secondi di tempo."
+  );
+
+  paragraph.id = "paragraphWelcome"; /*fatto*/
+  app.appendChild(paragraph);
+
+
+
+
+
+
+  // Lista
+  const list = creaElemento("ul", "list");/*fatto*/
+
+  list.id = "listWelcome"; /*fatto */
+
+  // Elementi della lista
+  const element1 = creaElemento(
+    "li",
+    "",
+    "Ogni domanda è a tempo e può ricevere una sola risposta."
+  );
+
+  list.appendChild(element1);
+
+  const element2 = creaElemento(
+    "li",
+    "",
+    "Una volta cliccata una risposta, la domanda è chiusa."
+  );
+
+  list.appendChild(element2);
+
+  const element3 = creaElemento(
+    "li",
+    "",
+    "Il quiz dura circa 3 minuti."
+  );
+
+  list.appendChild(element3);
+
+  // Inserisco la lista nel contenitore
+  app.appendChild(list);
+
+
+
+
+
+
+
+  // Pulsante Inizia
+  const button = creaElemento(
+    "button",
+    "button",
+    "Inizia"
+  );
+
+  button.id = "buttonIdWelcome";
+  button.type = "button";
+
+  app.appendChild(button);
+
+  // Gestione del click
+  button.addEventListener("click", () => {
+    shuffledQuestions = shuffleArray(QUESTIONS);
+    currentQuestion = 0;
+    score = 0;
+    currentScreen = "quiz";
+    render();
+  });
+}
+
+
+
+
+
+
+
+// Mostrare la prima domanda: recuperarla dall'array e inserirla nel DOM.
+// renderQuiz
+
+function renderQuiz() {
+
+  const domanda = shuffledQuestions[currentQuestion];
+
+  // Contenitore principale
+  const schermata = creaElemento("section", "gameScreen quiz");
+  schermata.id="quiz"
+
+  // Intestazione
+  const intestazione = creaElemento("div", "quizTop");
+
+  const contatore = creaElemento(
+    "div",
+    "quizRound",
+    `domanda ${currentQuestion + 1} di ${TOTAL_QUESTIONS}`
+  );
+
+
+  const punteggio = creaElemento(
+    "div",
+    "score-box",
+    `risposte corrette: ${score}`
+  );
+
+  intestazione.appendChild(contatore);
+  intestazione.appendChild(punteggio);
+
+  // Barra di avanzamento
+  const barra = creaElemento("div", "progressTrack");
+  const riempimento = creaElemento("div", "progressFill");
+
+  barra.appendChild(riempimento);
+
+  // Riquadro della domanda
+  const riquadroDomanda = creaElemento("div", "questionBox");
+  const testoDomanda = creaElemento("h2", "", domanda.question);
+
+  riquadroDomanda.appendChild(testoDomanda);
+
+  // Area delle risposte
+  const areaRisposte = creaElemento("div", "answersArea");
+
+  const risposte = shuffleArray([
+    domanda.correct_answer,
+    ...domanda.incorrect_answers
+  ]);
+
+  const lettere = ["A", "B", "C", "D"];
+
+  risposte.forEach((risposta, indice) => {
+
+    const bottone = creaElemento("button", "answer");
+    bottone.type = "button";
+
+    const lettera = creaElemento(
+      "span",
+      "answerLetter",
+      lettere[indice]
+    );
+
+    const testo = creaElemento("span", "answerText", risposta);
+
+    bottone.appendChild(lettera);
+    bottone.appendChild(testo);
+
+    areaRisposte.appendChild(bottone);
+  });
+
+
+
+
+
+
+
+
+
+
+  // Timer centrale gia stato cpollegato nel css 
+  const timer = creaElemento("div", "timer");
+  const centroTimer = creaElemento("div", "timerCore");
+  const valoreTimer = creaElemento("span", "", "20");
+
+  valoreTimer.id = "timerValue";
+
+  centroTimer.appendChild(valoreTimer);
+  timer.appendChild(centroTimer);
+  areaRisposte.appendChild(timer);
+
+
+
+
+
+
+
+
+
+  //Pagina finale
+  // Messaggio sotto le risposte 
+  const messaggio = creaElemento(
+    "p",
+    "feedback",
+    "Seleziona una risposta."
+  );
+
+  // Composizione della schermata
+  schermata.appendChild(intestazione);
+  schermata.appendChild(barra);
+  schermata.appendChild(riquadroDomanda);
+  schermata.appendChild(areaRisposte);
+  schermata.appendChild(messaggio);
+
+  // Inserisco la nuova schermata
+  app.appendChild(schermata);
+}
+
+//  Funzione per mescolare arrey
+
+function shuffleArray(array) {
+  const risultato = [...array];
+  for (let i = risultato.length - 1; i > 0; i--) {
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    const temporaneo = risultato[i];
+    risultato[i] = risultato[j];
+    risultato[j] = temporaneo;
+  }
+  return risultato;
+}
+
+render();

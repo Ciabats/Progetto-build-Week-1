@@ -1,23 +1,81 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz App</title>
-    <link rel="icon" href="assets/images.jpg">
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header class="brand">
-      <img src="assets/epicode-logo.png" alt="Epicode" class="brand-logo" />
-    </header>
-    <main id="app">
-      <!-- qui dentro vengono renderizzate le tre schermate dal JavaScript:
-           welcome, quiz, results -->
 
-      <h1>BUILD WEEK</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz App - Epicode</title>
+  <link rel="icon" href="assets/images.jpg">
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-    </main>
-    <script src="script.js"></script>
-  </body>
+<body>
+  <header class="headerWelcome">
+    <img src="assets/epicode-logo.png" alt="Epicode Logo" class="brand-logo" />
+  </header>
+
+  <main id="app">
+    <section id="welcome-screen">
+      <div id="Intro">
+        <h1>Benvenuti al milionario</h1>
+        <p class="Paragrafo">
+          Una serie di 10 domande sul mondo dell'informatica e del web.
+        </p>
+      </div>
+
+      <ul class="regole-list">
+        <li>Ogni domanda ha <strong>30 secondi</strong> di tempo</li>
+        <li>Una volta cliccata una risposta, non puoi cambiarla</li>
+        <li>Il Quiz dura circa 5 minuti</li>
+      </ul>
+
+      <div class="container-bottone">
+        <button type="button" id="btn-start" class="BottoneInvio">Inizia</button>
+      </div>
+    </section>
+
+  
+  </main>
+  <footer></footer>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
+
+
+
+
+<!--// funziona crea elementi
+
+function creaElemento(tag, classe, testo) {
+  const elemento = document.createElement(tag);
+
+  elemento.className = classe;
+
+  if (testo !== undefined) {
+    elemento.textContent = testo;
+  }
+      return elemento;
+}
+
+//richiamo il contenitore app
+
+const app = document.querySelector("#app");
+
+// render(): capire come scegliere la schermata da mostrare.
+
+// Funzione render:
+// 1. Controlla il valore di currentScreen
+// 2. Se è "welcome", mostra la schermata iniziale
+// 3. Se è "quiz", mostra la schermata del quiz
+// 4. Se è "results", mostra la schermata finale
+
+function render() {
+
+  //svuoto gli elementi e indirizzo la pagina.
+
+  while (app.firstChild) {
+    app.removeChild(app.firstChild);
+  }
+-->
