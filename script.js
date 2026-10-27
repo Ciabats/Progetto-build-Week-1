@@ -151,10 +151,10 @@ function renderResults() {
   const incorrectBar = document.createElement(`div`); //creo il div progressBar delle risposte sbagliaste
 
   //applico le classi
-  correctBar.classList.add(`correctBar`); //aggingo classe per successiva stitlizzazione
-  incorrectBar.classList.add(`incorrectBar`); //aggingo classe per successiva stitlizzazione
-  containerbar.classList.add(`container`); //aggingo classe per successiva stitlizzazione
-  containerbar2.classList.add(`container`); //aggingo classe per successiva stitlizzazione
+  correctBar.classList.add(`correctBar`); //aggiungo classe per successiva stitlizzazione
+  incorrectBar.classList.add(`incorrectBar`); //aggiungo classe per successiva stitlizzazione
+  containerbar.classList.add(`container`); //aggiungo classe per successiva stitlizzazione
+  containerbar2.classList.add(`container`); //aggiungo classe per successiva stitlizzazione
 
 
   correctBar.style.width = (score / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
