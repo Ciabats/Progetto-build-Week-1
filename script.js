@@ -87,7 +87,7 @@ const TIMER_DURATION = 20;     // secondi per ogni domanda
 /* Stato globale */
 let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
 let currentQuestion = 0;
-let score = 4;
+let score = 0;
 let timerId = null;
 
 /* SCRIVI QUI LE TUE FUNZIONI:
@@ -108,18 +108,20 @@ function renderResults() {
   app.textContent = " ";
 
   const title = document.createElement(`h1`);
+  title.classList.add(`tileWelcome`)
   title.textContent = `Risultato`;
   app.appendChild(title);
 
-  
+
   const incorrect = TOTAL_QUESTIONS - score;
-  const dipslayScore = Math.round((score / TOTAL_QUESTIONS) * 100);
-  const displayWrong = Math.round((incorrect / TOTAL_QUESTIONS) * 100); //mi calcolo in percentuale le risposte sbagliate
+  const displayScore = Math.round((score / TOTAL_QUESTIONS) * 100);
   const displayResult = document.createElement(`p`); //creo il tag dove visualizzare il risultato
-  displayResult.textContent = `${dipslayScore}%`; //
+  displayResult.classList.add(`score`)
+  displayResult.textContent = `${displayScore}%`; //
   app.appendChild(displayResult); //metto a schermo il risultato
 
   const subTitle = document.createElement(`h4`);
+  subTitle.classList.add(`subTitleResults`);
   subTitle.textContent = `hai completato il quiz`;
   app.appendChild(subTitle);
 
@@ -130,16 +132,16 @@ function renderResults() {
 
   //controllo il risultato del quiz 
 
-  if (dipslayScore >= PASS_THRESHOLD) {
+  if (displayScore >= PASS_THRESHOLD) {
     const promoted = document.createElement(`p`);
     promoted.classList.add(`promoted`);  //...se maggiore del 60%
-    promoted.textContent = `Promosso`
-    displayResult.appendChild(promoted);
+    promoted.textContent = `Promosso`;
+    app.appendChild(promoted);
   } else {
     const failed = document.createElement(`p`);
     failed.classList.add(`failed`);
     failed.textContent = `Bocciato`; //.... se minore del 60%
-    displayResult.appendChild(failed);
+    app.appendChild(failed);
   }
 
   //aggiorna stato barre 
@@ -149,15 +151,16 @@ function renderResults() {
   const incorrectBar = document.createElement(`div`); //creo il div progressBar delle risposte sbagliaste
 
   //applico le classi
-  correctBar.classList.add(`correctBar`);
-  incorrectBar.classList.add(`incorrectBar`);
-  containerbar.classList.add(`container`)
-  containerbar2.classList.add(`container`)
+  correctBar.classList.add(`correctBar`); //aggiungo classe per successiva stitlizzazione
+  incorrectBar.classList.add(`incorrectBar`); //aggiungo classe per successiva stitlizzazione
+  containerbar.classList.add(`container`); //aggiungo classe per successiva stitlizzazione
+  containerbar2.classList.add(`container`); //aggiungo classe per successiva stitlizzazione
 
 
   correctBar.style.width = (score / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
   incorrectBar.style.width = (incorrect / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
-  displayResult.appendChild(containerbar);
+  app.appendChild(containerbar);
+  app.appendChild(containerbar2);
   containerbar.appendChild(correctBar);
   containerbar2.appendChild(incorrectBar);
 
@@ -167,19 +170,24 @@ function renderResults() {
 
   correctNumb.textContent = `${score}/${TOTAL_QUESTIONS}`; //metto a schermo il numero di rispote giuste
   incorrectNumb.textContent = `${incorrect}/${TOTAL_QUESTIONS}`; //metto a schermo il numero di rispote sbagliate
+  correctNumb.classList.add(`correct`);
+  incorrectNumb.classList.add(`wrong`);
   containerbar.appendChild(correctNumb);
-  containerbar2.appendChild(incorrectNumb);
+  containerbar2.appendChild(incorrectNumb); 
 
 
   //passo al button per il reset del quiz
   const reset = document.createElement(`button`) //creo il button per il reset del quiz
-  reset.id = "reset"
+  reset.id = "reset"; //assegno id 
+  reset.textContent = "Ricomincia"; //testo all'interno del button reset
   app.appendChild(reset);
-  reset.addEventListener(`click`, function () {
-    currentScreen = "welcome";
-    alert(`Quiz resettato, pronto per ricominciare?`)
+  reset.addEventListener(`click`, function () { //aggiungo evento al suo click 
+    currentScreen = "welcome"; //gli faccio cambiare il valore della variabile currentScreen
+
+    // alert(`Quiz resettato, pronto per ricominciare?`)
 
     render()
+
   })
 
 }
