@@ -85,9 +85,9 @@ const FEEDBACK_DELAY = 1500;   // ms di attesa dopo risposta prima di avanzare
 const TIMER_DURATION = 20;     // secondi per ogni domanda
 
 /* Stato globale */
-let currentScreen = "results"; // "welcome" | "quiz" | "results"
+let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
 let currentQuestion = 0;
-let score = 7;
+let score = 0;
 let timerId = null;
 
 /* SCRIVI QUI LE TUE FUNZIONI:
