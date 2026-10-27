@@ -85,9 +85,9 @@ const FEEDBACK_DELAY = 1500;   // ms di attesa dopo risposta prima di avanzare
 const TIMER_DURATION = 20;     // secondi per ogni domanda
 
 /* Stato globale */
-let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
+let currentScreen = "results"; // "welcome" | "quiz" | "results"
 let currentQuestion = 0;
-let score = 4;
+let score = 7;
 let timerId = null;
 
 /* SCRIVI QUI LE TUE FUNZIONI:
@@ -113,10 +113,9 @@ function renderResults() {
 
   
   const incorrect = TOTAL_QUESTIONS - score;
-  const dipslayScore = Math.round((score / TOTAL_QUESTIONS) * 100);
-  const displayWrong = Math.round((incorrect / TOTAL_QUESTIONS) * 100); //mi calcolo in percentuale le risposte sbagliate
+  const displayScore = Math.round((score / TOTAL_QUESTIONS) * 100);
   const displayResult = document.createElement(`p`); //creo il tag dove visualizzare il risultato
-  displayResult.textContent = `${dipslayScore}%`; //
+  displayResult.textContent = `${displayScore}%`; //
   app.appendChild(displayResult); //metto a schermo il risultato
 
   const subTitle = document.createElement(`h4`);
@@ -130,16 +129,16 @@ function renderResults() {
 
   //controllo il risultato del quiz 
 
-  if (dipslayScore >= PASS_THRESHOLD) {
+  if (displayScore >= PASS_THRESHOLD) {
     const promoted = document.createElement(`p`);
     promoted.classList.add(`promoted`);  //...se maggiore del 60%
     promoted.textContent = `Promosso`
-    displayResult.appendChild(promoted);
+    app.appendChild(promoted);
   } else {
     const failed = document.createElement(`p`);
     failed.classList.add(`failed`);
     failed.textContent = `Bocciato`; //.... se minore del 60%
-    displayResult.appendChild(failed);
+    app.appendChild(failed);
   }
 
   //aggiorna stato barre 
@@ -157,7 +156,8 @@ function renderResults() {
 
   correctBar.style.width = (score / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
   incorrectBar.style.width = (incorrect / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
-  displayResult.appendChild(containerbar);
+  app.appendChild(containerbar);
+  app.appendChild(containerbar2);
   containerbar.appendChild(correctBar);
   containerbar2.appendChild(incorrectBar);
 
@@ -173,7 +173,8 @@ function renderResults() {
 
   //passo al button per il reset del quiz
   const reset = document.createElement(`button`) //creo il button per il reset del quiz
-  reset.id = "reset"
+  reset.id = "reset";
+  reset.textContent = "Ricomincia";
   app.appendChild(reset);
   reset.addEventListener(`click`, function () {
     currentScreen = "welcome";
