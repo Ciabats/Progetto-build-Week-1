@@ -271,9 +271,9 @@ function renderQuiz() {
 
   const domanda = shuffledQuestions[currentQuestion];
 
-  // Contenitore principale
-  const schermata = creaElemento("section", "gameScreen quiz");
-  schermata.id="quiz"
+  // Contenitore principale SFONDO DIV 
+  const schermata = creaElemento("section", "gameScreenquiz");
+  
 
   // Intestazione
   const intestazione = creaElemento("div", "quizTop");
@@ -300,13 +300,16 @@ function renderQuiz() {
 
   barra.appendChild(riempimento);
 
+
+
+
   // Riquadro della domanda
   const riquadroDomanda = creaElemento("div", "questionBox");
   const testoDomanda = creaElemento("h2", "", domanda.question);
 
   riquadroDomanda.appendChild(testoDomanda);
 
-  // Area delle risposte
+  // Area delle risposte 
   const areaRisposte = creaElemento("div", "answersArea");
 
   const risposte = shuffleArray([
