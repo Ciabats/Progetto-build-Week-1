@@ -5,9 +5,10 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #1b1535 url("assets/bg.jpg") center / cover no-repeat fixed;
-  color: #1b2845;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  background: #0b091a url("assets/bg.jpg") center / cover no-repeat fixed;
+  color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,6 +16,7 @@ body {
   padding: 24px;
 }
 
+/* --- HEADER BRAND --- */
 .brand {
   width: 100%;
   max-width: 720px;
@@ -23,20 +25,294 @@ body {
 }
 
 .brand-logo {
-  height: 36px;
+  height: 40px;
+  transition: transform 0.3s ease;
 }
 
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+/* --- CONTAINER PRINCIPALE APP --- */
 #app {
-  background: #ffffff;
+  background: rgba(20, 16, 43, 0.95);
+  border: 1.5px solid #2a2254;
   border-radius: 16px;
   padding: 40px;
   max-width: 720px;
   width: 100%;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(25, 6, 234, 0.15);
 }
 
-/* Aggiungi qui le tue regole CSS per:
-   - .welcome (titolo, intro, button Inizia)
-   - .quiz (counter, timer, domanda, button risposta, classi correct/wrong)
-   - .results (percentuale, barre orizzontali, verdetto promosso/bocciato, restart)
-*/
+#headerWelcome {
+  font-size: 2.2rem;
+  margin-top: 10px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+#paragraphWelcome {
+  margin-top: 12px;
+  margin-bottom: 30px;
+  color: #b4b0cd;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
+
+#listWelcome {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 34px;
+}
+
+#listWelcome {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+  color: #e2e0ed;
+}
+
+#ullistWelcome::after {
+  content: "♦️";
+  position: absolute;
+  left: 0;
+  color: #d4af37;
+  font-size: 1.1rem;
+}
+
+
+#listWelcome strong {
+  color: #e70909;
+}
+
+
+
+
+
+
+
+
+/*BOTTONE*/
+
+#aswercoretto {
+  background-color: green;
+
+}
+
+#aswersbagliato {
+  background-color: red;
+}
+
+
+#buttonIdWelcome {
+  background: linear-gradient(135deg, #1906ea 0%, #0d0399 100%);
+  border: 1.5px solid #d4af37;
+  border-radius: 30px;
+  width: 140px;
+  padding: 12px 0;
+  margin-top: 10px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1.05rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(25, 6, 234, 0.3);
+}
+
+#buttonIdWelcome:hover {
+  background: #ffffff;
+  color: #1906ea;
+  border-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(25, 6, 234, 0.5);
+  transform: translateY(-2px);/
+}
+
+#buttonIdWelcome:active {
+  transform: translateY(0);
+}
+
+/* --- QUIZ SCREEN (STILE TV GAME SHOW) --- */
+
+#quiz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 16px;
+  background: #151a38;
+  border: 1px solid #3b4d82;
+  color: #fbbf24;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 6px 24px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.question-box {
+  width: 100%;
+  background: linear-gradient(180deg, #182247 0%, #0d142e 100%);
+  border: 2px solid #4f6ca8;
+  border-radius: 40px;
+  padding: 32px 28px;
+  text-align: center;
+  margin-bottom: 28px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.question-text {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.quiz-body {
+  position: relative;
+  width: 100%;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-option {
+  background: linear-gradient(180deg, #172145 0%, #0d1430 100%);
+  border: 2px solid #3d5691;
+  border-radius: 30px;
+  padding: 14px 20px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.btn-option:hover:not(:disabled) {
+  border-color: #fbbf24;
+  background: linear-gradient(180deg, #223166 0%, #131e47 100%);
+}
+
+.option-prefix {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fbbf24;
+  color: #0b1124;
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.option-label {
+  flex-grow: 1;
+}
+
+.btn-option.correct {
+  background: linear-gradient(180deg, #15803d 0%, #0f5127 100%) !important;
+  border-color: #4ade80 !important;
+  color: #ffffff !important;
+}
+
+.btn-option.correct .option-prefix {
+  background: #4ade80;
+  color: #062e12;
+}
+
+.btn-option.wrong {
+  background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%) !important;
+  border-color: #fca5a5 !important;
+  color: #ffffff !important;
+}
+
+.btn-option.wrong .option-prefix {
+  background: #fca5a5;
+  color: #450a0a;
+}
+
+/* TIMER CENTRALE STILE GAME SHOW */
+#timerValue {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  #timerValue {
+    position: static;
+    transform: none;
+    margin: 16px auto;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#timerValue {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #0d1430;
+  border: 3px solid #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+}
+
+#timerValue {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+#timerValue {
+  border-color: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
+  animation: pulse-warn 0.8s infinite alternate;
+}
+
+@keyframes pulse-warn {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.12);
+  }
+}
