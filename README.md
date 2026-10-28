@@ -45,26 +45,28 @@ L'interfaccia richiama un quiz televisivo con un timer al centro delle risposte.
 
 | Nome funzione | Cosa fa |
 |---|---|
+| `creaElemento(tag, classe, testo)` | Crea un elemento HTML con la classe e il testo e lo restituisce, per non ripetere ogni volta `createElement`. |
 | `render()` | in base al valore di `currentScreen` seleziona la schermata da mettere a schermo |
 | `renderWelcome()` | costruisce la schermata iniziale con le linee guida per il quiz |
 | `renderQuiz()` | costruisce la schermata del quiz in cui vengono mostrate le domande con le relative risposte |
 | `renderResults()` | costruisce la schermata dei risultati che permette all'utente di vedere se lo ha passato meno |
 | `shuflleArray()` | permette di rendere randomica la visualizzazione di domande e risposte |
 | `startTimer()` , `stopTimer()`  | gestiscono il countdown del timer |
-| `manageClick` |  |
-| `handleTimeUp()` |  | 
+| `handleTimeUp()` | Una volta scaduto il tempo rende impossibile il click sulle risposte, mostra “Tempo scaduto!” e salva la domanda come errore senza risposta.| 
+| `manageClick` | Gestisce il click su una risposta: blocca i click successivi, ferma il timer, verifica se la risposta è corretta, aggiorna il punteggio e salva eventuali errori. |
 | `advance()` |  |
+| `renderWrongAnswers` | Mostra una scheda per ogni risposta errata con annessa risposta corretta, oppure un messaggio di complimenti se non ce ne sono. |
 
 ## Contributi
 
-| Nome | Area di lavoro |
-|---|---|
-| [ Emanuel Esposito ] | [ Team Leader - JavaScript ] |
-| [ Carmine Ruggiero ] | [ HTML - CSS ] |
-| [ Laura Ziino ] | [ HTML - CSS ] |
-| [ Gabriele Raggi ] | [ HTML - CSS ] |
-| [ Louis Anthony Pagliaro ] | [JavaScript] |
-| [ Matteo Fratini ] | [GitHub - JavaScript] |
+| Nome | Area di lavoro | Profilo GitHub |
+|---|---|---|
+| [ Emanuel Esposito ] | [ Team Leader - JavaScript ] | [@emanuel95esposito-ops](https://github.com/emanuel95esposito-ops) |
+| [ Carmine Ruggiero ] | [ HTML - CSS ] | [@Carmine-Ruggiero](https://github.com/Carmine-Ruggiero) |
+| [ Laura Ziino ] | [ HTML - CSS ] | [@nikoziino21-ai](https://github.com/nikoziino21-ai) |
+| [ Gabriele Raggi ] | [ HTML - CSS ] | [@raggi370-source](https://github.com/raggi370-source) |
+| [ Louis Anthony Pagliaro ] | [JavaScript] | [@Lokill0](https://github.com/Lokill0) |
+| [ Matteo Fratini ] | [GitHub - JavaScript] | [@Ciabats](https://github.com/Ciabats) |
 
 
 Epicode · Build Week 1 · 2026
