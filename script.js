@@ -18,6 +18,7 @@ const QUESTIONS = [
     correct_answer: "Central Processing Unit",
     incorrect_answers: [
       "Central Process Unit",
+      "Central Process Unit",
       "Computer Personal Unit",
       "Central Processor Unit",
     ],
@@ -92,6 +93,10 @@ let timeLeft = TIMER_DURATION;
 let shuffledQuestions = []; // variabili mescolate per la partita in corso
 let rispostaSelezionata = false;
 let risposteSbagliate = [];
+
+
+
+
 /* SCRIVI QUI LE TUE FUNZIONI:
    - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
    - renderWelcome() per la schermata iniziale con button Inizia
@@ -150,6 +155,7 @@ function render() {
       renderResults();
   }
 }
+
 
 // schermata iniziale: far funzionare il pulsante Inizia.
 
@@ -372,6 +378,11 @@ function startTimer() {
     timeLeft--;
     valoreTimer.textContent = timeLeft;
 
+    // Ultimi 5 secondi: timer rosso
+    if (timeLeft <= 5) {
+      valoreTimer.classList.add("warning");
+    }
+
     if (timeLeft <= 0) {
       stopTimer();
       handleTimeUp();
@@ -556,10 +567,16 @@ function renderResults() {
   incorrectNumb.classList.add(`wrong`);
   containerbar.appendChild(correctNumb);
   containerbar2.appendChild(incorrectNumb);
-
-
-
-
+ 
+  const correctionSection = document.createElement("section");
+  correctionSection.classList.add("wrong-answers-container");
+  const correctionTitle = document.createElement("h3");
+  correctionTitle.textContent = "Correzione delle risposte";
+  const correctionList = document.createElement("div");
+  correctionList.id = "wrongAnswersList";
+  correctionSection.append(correctionTitle, correctionList);
+  app.appendChild(correctionSection);
+  renderWrongAnswers(correctionList);
 
   //passo al button per il reset del quiz
   const reset = document.createElement(`button`) //creo il button per il reset del quiz
@@ -572,6 +589,35 @@ function renderResults() {
     render();
   })
 
+}
+
+function renderWrongAnswers(container) {
+  if (risposteSbagliate.length === 0) {
+    const message = document.createElement("p");
+    message.textContent = "Ottimo lavoro! Hai risposto correttamente a tutte le domande.";
+    container.appendChild(message);
+    return;
+  }
+
+  risposteSbagliate.forEach((item) => {
+    const card = document.createElement("article");
+    card.classList.add("wrong-item");
+
+    const question = document.createElement("p");
+    question.classList.add("wrong-question");
+    question.textContent = item.domanda;
+
+    const userChoice = document.createElement("p");
+    userChoice.classList.add("wrong-user-choice");
+    userChoice.textContent = `La tua risposta: ${item.rispostaData}`;
+
+    const correctChoice = document.createElement("p");
+    correctChoice.classList.add("wrong-correct-choice");
+    correctChoice.textContent = `Risposta corretta: ${item.rispostaCorretta}`;
+
+    card.append(question, userChoice, correctChoice);
+    container.appendChild(card);
+  });
 }
 
 ////fine pagina risultato.
