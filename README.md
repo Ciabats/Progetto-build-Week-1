@@ -12,7 +12,7 @@ L'interfaccia richiama un quiz televisivo con un timer al centro delle risposte.
 ![Schermata Quiz](docs/quiz.png)
 
 | Results |
-![Schermata Results](docs/results.png)
+![Schermata Results](docs/results(2).png)
 
 ## Come Funziona
 
