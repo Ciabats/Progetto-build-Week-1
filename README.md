@@ -41,6 +41,19 @@ L'interfaccia richiama un quiz televisivo con un timer al centro delle risposte.
 - Java_script
 - GitHub
 
+## Funzioni Principali 
+
+| Nome funzione | Cosa fa |
+|---|---|
+| `render()` | in base al valore di `currentScreen` seleziona la schermata da mettere a schermo |
+| `renderWelcome()` | costruisce la schermata iniziale con le linee guida per il quiz |
+| `renderQuiz()` | costruisce la schermata del quiz in cui vengono mostrate le domande con le relative risposte |
+| `renderResults()` | costruisce la schermata dei risultati che permette all'utente di vedere se lo ha passato meno |
+| `shuflleArray()` | permette di rendere randomica la visualizzazione di domande e risposte |
+| `startTimer()` , `stopTimer()`  | gestiscono il countdown del timer |
+| `manageClick` |  |
+| `handleTimeUp()` |  | 
+| `advance()` |  |
 
 ## Contributi
 
