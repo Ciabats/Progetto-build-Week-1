@@ -602,6 +602,14 @@ body {
     font-weight: bold;
 }
 
+/* DESCRIZIONE DELLE BARRE DEI RISULTATI */
+
+.description{
+  font-family: 'Cinzel', serif;
+      font-size: 16px;
+    font-weight: bold;
+     color: white;
+}
 
 /* CONTENITORI DELLE BARRE DEI RISULTATI */
 

@@ -1,8 +1,8 @@
-  /*REGOLE
-  - Codice in JavaScript moderno: solo const/let, mai var.
-  - DOM: usa querySelector / querySelectorAll.
-  - Eventi: usa addEventListener (mai onclick inline nell'HTML).
-  - Pattern: stato → render → eventi.
+/*REGOLE
+- Codice in JavaScript moderno: solo const/let, mai var.
+- DOM: usa querySelector / querySelectorAll.
+- Eventi: usa addEventListener (mai onclick inline nell'HTML).
+- Pattern: stato → render → eventi.
 */
 
 /*
@@ -17,7 +17,6 @@ const QUESTIONS = [
     question: "Cosa significa l'acronimo CPU?",
     correct_answer: "Central Processing Unit",
     incorrect_answers: [
-      "Central Process Unit",
       "Central Process Unit",
       "Computer Personal Unit",
       "Central Processor Unit",
@@ -210,6 +209,8 @@ function renderWelcome() {
   );
 
   list.appendChild(element3);
+
+  // 
 
   // Inserisco la lista nel contenitore
   app.appendChild(list);
@@ -542,6 +543,19 @@ function renderResults() {
   const containerbar2 = document.createElement(`div`);
   const correctBar = document.createElement(`div`); //creo il div progressBar delle risposte corrette
   const incorrectBar = document.createElement(`div`); //creo il div progressBar delle risposte sbagliaste
+  const trueDescription = creaElemento(
+    `p`,
+    `description`,
+    `Corrette:`
+  );
+  const wrongDescription = creaElemento(
+    `p`,
+    `description`,
+    `Sbagliate:`
+  );
+
+
+
 
   //applico le classi
   correctBar.classList.add(`correctBar`); //aggiungo classe per successiva stitlizzazione
@@ -552,7 +566,9 @@ function renderResults() {
 
   correctBar.style.width = (score / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
   incorrectBar.style.width = (incorrect / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
+  app.appendChild(trueDescription);
   app.appendChild(containerbar);
+  app.appendChild(wrongDescription);
   app.appendChild(containerbar2);
   containerbar.appendChild(correctBar);
   containerbar2.appendChild(incorrectBar);
@@ -567,7 +583,7 @@ function renderResults() {
   incorrectNumb.classList.add(`wrong`);
   containerbar.appendChild(correctNumb);
   containerbar2.appendChild(incorrectNumb);
- 
+
   const correctionSection = document.createElement("section");
   correctionSection.classList.add("wrong-answers-container");
   const correctionTitle = document.createElement("h3");
