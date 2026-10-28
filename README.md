@@ -6,13 +6,13 @@ L'interfaccia richiama un quiz televisivo con un timer al centro delle risposte.
 ## Anteprima
 
 | Welcome |
-![Schermata Welcome](docs/Screenshot 2026-10-28 103406.png)
+![Schermata Welcome](docs/welcome.png)
 
 | Quiz |
-![Schermata Quiz](docs/Screenshot 2026-10-28 103406.png)
+![Schermata Quiz](docs/quiz.png)
 
 | Results |
-![Schermata Results](docs/Screenshot 2026-10-28 103406.png)
+![Schermata Results](docs/quiz.png)
 
 ## Come Funziona
 
