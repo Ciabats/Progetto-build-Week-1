@@ -81,7 +81,7 @@ const QUESTIONS = [
 /* Costanti del quiz */
 const TOTAL_QUESTIONS = QUESTIONS.length;
 const PASS_THRESHOLD = 60;     // percentuale minima per "Promosso"
-const FEEDBACK_DELAY = 1500;   // ms di attesa dopo risposta prima di avanzare
+const FEEDBACK_DELAY = 3500;   // ms di attesa dopo risposta prima di avanzare
 const TIMER_DURATION = 20;     // secondi per ogni domanda
 
 /* Stato globale */
@@ -89,8 +89,10 @@ let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
 let currentQuestion = 0;
 let score = 0;
 let timerId = null;
+let timeLeft = TIMER_DURATION;
 let shuffledQuestions = []; // variabili mescolate per la partita in corso
 let rispostaSelezionata = false;
+let risposteSbagliate = [];
 /* SCRIVI QUI LE TUE FUNZIONI:
    - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
    - renderWelcome() per la schermata iniziale con button Inizia
@@ -219,11 +221,13 @@ function renderWelcome() {
 
   app.appendChild(button);
 
-  // Gestione del click
+  // Gestione del click del pulsante iniza
   button.addEventListener("click", () => {
     shuffledQuestions = shuffleArray(QUESTIONS);
     currentQuestion = 0;
     score = 0;
+    risposteSbagliate = [];
+    rispostaSelezionata = false;
     currentScreen = "quiz";
     render();
   });
@@ -296,6 +300,10 @@ function renderQuiz() {
     bottone.appendChild(testo);
 
     areaRisposte.appendChild(bottone);
+
+    bottone.addEventListener("click", () => {
+      manageClick(bottone, risposta, domanda);
+    });
   });
 
   // Timer centrale
@@ -325,6 +333,8 @@ function renderQuiz() {
 
   // Inserisco la nuova schermata
   app.appendChild(schermata);
+  //parte il timer
+  startTimer();
 }
 
 //  Funzione per mescolare arrey
@@ -342,24 +352,137 @@ function shuffleArray(array) {
   return risultato;
 }
 
+// start timer e stop timer
 
-//advance() manageClick() timer ()
+function stopTimer() {
+  if (timerId !== null) {
+    clearInterval(timerId);
+    timerId = null;
+  }
+}
 
-function manageClick(button, answer, currentQuestion) {
-  //blocchiamo successivi click
+function startTimer() {
+  stopTimer();
+
+  timeLeft = TIMER_DURATION;
+
+  const valoreTimer = document.querySelector("#timerValue");
+  valoreTimer.textContent = timeLeft;
+
+  timerId = setInterval(() => {
+    timeLeft--;
+    valoreTimer.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      stopTimer();
+      handleTimeUp();
+    }
+  }, 1000);
+}
+
+
+//funzione manageClick()  per gestire i click delle risposte.
+
+function manageClick(button, answer, domanda) {
+  // Blocca i click successivi
   if (rispostaSelezionata) {
     return;
   }
+  // cosa fare dopo il click
   rispostaSelezionata = true;
-  if (answer === currentQuestion.correct_answer) {
-    // Risposta corretta
+  stopTimer();
+
+  const messaggio = document.querySelector(".feedback");
+
+  if (answer === domanda.correct_answer) {
     score++;
     button.classList.add("correct");
+    messaggio.textContent = "Risposta corretta!";
   } else {
-    // Risposta sbagliata
+    button.classList.add("wrong");
+    messaggio.textContent = "Risposta sbagliata!";
+    // 1. Crea un oggetto per salvare domanda risposta sbagliata e risposta relativa corretta
+    const errore = {
+      domanda: domanda.question,
+      rispostaData: answer,
+      rispostaCorretta: domanda.correct_answer
+    };
+    // 2. Aggiungi l'oggetto a risposteSbagliate
+    risposteSbagliate.push(errore);
   }
 
-} 
+  setTimeout(advance, FEEDBACK_DELAY);
+}
+
+//funzione handleTimeUp cosa fare quando scade il tempo.
+
+function handleTimeUp() {
+
+  // Controlla se la domanda è già stata chiusa.
+  //    Se rispostaSelezionata è true, esci dalla funzione.
+
+  if (rispostaSelezionata === true) {
+    return;
+  }
+
+  // Segna la domanda come chiusa.
+
+  rispostaSelezionata = true;
+
+  // Recupera il paragrafo con classe "feedback".
+
+  const messaggio = document.querySelector(".feedback");
+
+  // Mostra un messaggio che comunichi
+  //    che il tempo è scaduto.
+
+  messaggio.textContent = "Tempo scaduto!";
+
+  // salvare risposta non data , errore.
+
+  const errore = {
+    domanda: shuffledQuestions[currentQuestion].question,
+    rispostaData: "Nessuna risposta",
+    rispostaCorretta: shuffledQuestions[currentQuestion].correct_answer
+  };
+
+  risposteSbagliate.push(errore);
+
+  // Programma l'avanzamento con setTimeout
+
+  setTimeout(advance, FEEDBACK_DELAY);
+
+}
+
+//function advance() passa alla domanda successiva
+
+function advance() {
+  // 1. Aumenta l'indice della domanda
+
+  currentQuestion++;
+
+  // 2. Reimposta rispostaSelezionata a false
+
+  rispostaSelezionata = false;
+
+  // 3. Se currentQuestion è uguale a TOTAL_QUESTIONS
+
+  if (currentQuestion === TOTAL_QUESTIONS) {
+
+    // cambia schermata in results
+
+    currentScreen = "results";
+
+  } else {
+
+    // cambia schermata in quiz
+
+    currentScreen = "quiz";
+  }
+
+  // 4. Aggiorna la schermata
+  render();
+}
 
 //pagina risultato.
 
@@ -449,4 +572,7 @@ function renderResults() {
 
 }
 
-renderResults();
+////fine pagina risultato.
+///spacca
+
+render();
