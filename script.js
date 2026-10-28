@@ -1,5 +1,4 @@
-/*
-  REGOLE
+  /*REGOLE
   - Codice in JavaScript moderno: solo const/let, mai var.
   - DOM: usa querySelector / querySelectorAll.
   - Eventi: usa addEventListener (mai onclick inline nell'HTML).
@@ -18,6 +17,7 @@ const QUESTIONS = [
     question: "Cosa significa l'acronimo CPU?",
     correct_answer: "Central Processing Unit",
     incorrect_answers: [
+      "Central Process Unit",
       "Central Process Unit",
       "Computer Personal Unit",
       "Central Processor Unit",
@@ -89,6 +89,10 @@ let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
 let currentQuestion = 0;
 let score = 0;
 let timerId = null;
+let timeLeft = TIMER_DURATION;
+let shuffledQuestions = []; // variabili mescolate per la partita in corso
+let rispostaSelezionata = false;
+let risposteSbagliate = [];
 let timeLeft = TIMER_DURATION;
 let shuffledQuestions = []; // variabili mescolate per la partita in corso
 let rispostaSelezionata = false;
