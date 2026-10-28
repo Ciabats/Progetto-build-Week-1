@@ -1,4 +1,3 @@
-/*
   REGOLE
   - Codice in JavaScript moderno: solo const/let, mai var.
   - DOM: usa querySelector / querySelectorAll.
@@ -89,7 +88,10 @@ let currentScreen = "welcome"; // "welcome" | "quiz" | "results"
 let currentQuestion = 0;
 let score = 0;
 let timerId = null;
-
+let timeLeft = TIMER_DURATION;
+let shuffledQuestions = []; // variabili mescolate per la partita in corso
+let rispostaSelezionata = false;
+let risposteSbagliate = [];
 /* SCRIVI QUI LE TUE FUNZIONI:
    - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
    - renderWelcome() per la schermata iniziale con button Inizia
@@ -101,6 +103,387 @@ let timerId = null;
    - advance() per andare alla domanda successiva o ai risultati
 */
 
+// funziona crea elementi
+
+function creaElemento(tag, classe, testo) {
+  const elemento = document.createElement(tag);
+
+  elemento.className = classe;
+
+  if (testo !== undefined) {
+    elemento.textContent = testo;
+  }
+
+  return elemento;
+}
+
+//richiamo il contenitore app
+
+const app = document.querySelector("#app");
+
+// render(): capire come scegliere la schermata da mostrare.
+
+// Funzione render:
+// 1. Controlla il valore di currentScreen
+// 2. Se è "welcome", mostra la schermata iniziale
+// 3. Se è "quiz", mostra la schermata del quiz
+// 4. Se è "results", mostra la schermata finale
+
+function render() {
+
+  //svuoto gli elementi e indirizzo la pagina.
+
+  while (app.firstChild) {
+    app.removeChild(app.firstChild);
+  }
+
+  switch (currentScreen) {
+    case "welcome":
+      renderWelcome();
+      break;
+
+    case "quiz":
+      renderQuiz();
+      break;
+
+    default:
+      renderResults();
+  }
+}
+
+// schermata iniziale: far funzionare il pulsante Inizia.
+
+function renderWelcome() {
+
+  // Titolo
+  const header = creaElemento(
+    "h1",
+    "headers",
+    "Benvenuto al tuo esame"
+  );
+
+  header.id = "headerWelcome";
+  app.appendChild(header);
+
+  // Paragrafo
+  const paragraph = creaElemento(
+    "p",
+    "paragraph",
+    "Una serie di 10 domande sul mondo dell'informatica e del web. Per ogni domanda hai 20 secondi di tempo."
+  );
+
+  paragraph.id = "paragraphWelcome";
+  app.appendChild(paragraph);
+
+  // Lista
+  const list = creaElemento("ul", "list");
+
+  list.id = "listWelcome";
+
+  // Elementi della lista
+  const element1 = creaElemento(
+    "li",
+    "",
+    "Ogni domanda è a tempo e può ricevere una sola risposta."
+  );
+
+  list.appendChild(element1);
+
+  const element2 = creaElemento(
+    "li",
+    "",
+    "Una volta cliccata una risposta, la domanda è chiusa."
+  );
+
+  list.appendChild(element2);
+
+  const element3 = creaElemento(
+    "li",
+    "",
+    "Il quiz dura circa 3 minuti."
+  );
+
+  list.appendChild(element3);
+
+  // Inserisco la lista nel contenitore
+  app.appendChild(list);
+
+  // Pulsante Inizia
+  const button = creaElemento(
+    "button",
+    "button",
+    "Inizia"
+  );
+
+  button.id = "buttonIdWelcome";
+  button.type = "button";
+
+  app.appendChild(button);
+
+  // Gestione del click del pulsante iniza
+  button.addEventListener("click", () => {
+    shuffledQuestions = shuffleArray(QUESTIONS);
+    currentQuestion = 0;
+    score = 0;
+    risposteSbagliate = [];
+    rispostaSelezionata = false;
+    currentScreen = "quiz";
+    render();
+  });
+}
+
+// Mostrare la prima domanda: recuperarla dall'array e inserirla nel DOM.
+// renderQuiz
+
+function renderQuiz() {
+
+  const domanda = shuffledQuestions[currentQuestion];
+
+  // Contenitore principale
+  const schermata = creaElemento("section", "gameScreen quiz");
+
+  // Intestazione
+  const intestazione = creaElemento("div", "quizTop");
+
+  const contatore = creaElemento(
+    "div",
+    "quizRound",
+    `Domanda ${currentQuestion + 1} di ${TOTAL_QUESTIONS}`
+  );
+
+  const punteggio = creaElemento(
+    "div",
+    "score-box",
+    `Risposte corrette: ${score}`
+  );
+
+  intestazione.appendChild(contatore);
+  intestazione.appendChild(punteggio);
+
+  // Barra di avanzamento 
+  const barra = creaElemento("div", "progressTrack");
+  const riempimento = creaElemento("div", "progressFill");
+
+  barra.appendChild(riempimento);
+
+  // Riquadro della domanda
+  const riquadroDomanda = creaElemento("div", "questionBox");
+  const testoDomanda = creaElemento("h2", "questionText", domanda.question);
+
+  riquadroDomanda.appendChild(testoDomanda);
+
+  // Area delle risposte
+  const areaRisposte = creaElemento("div", "answersArea");
+
+  const risposte = shuffleArray([
+    domanda.correct_answer,
+    ...domanda.incorrect_answers
+  ]);
+
+  const lettere = ["A", "B", "C", "D"];
+
+  risposte.forEach((risposta, indice) => {
+
+    const bottone = creaElemento("button", "answer");
+    bottone.type = "button";
+
+    const lettera = creaElemento(
+      "span",
+      "answerLetter",
+      lettere[indice]
+    );
+
+    const testo = creaElemento("span", "answerText", risposta);
+
+    bottone.appendChild(lettera);
+    bottone.appendChild(testo);
+
+    areaRisposte.appendChild(bottone);
+
+    bottone.addEventListener("click", () => {
+      manageClick(bottone, risposta, domanda);
+    });
+  });
+
+  // Timer centrale
+  const timer = creaElemento("div", "timer");
+  const centroTimer = creaElemento("div", "timerCore");
+  const valoreTimer = creaElemento("span", "", "20");
+
+  valoreTimer.id = "timerValue";
+
+  centroTimer.appendChild(valoreTimer);
+  timer.appendChild(centroTimer);
+  areaRisposte.appendChild(timer);
+
+  // Messaggio sotto le risposte
+  const messaggio = creaElemento(
+    "p",
+    "feedback",
+    "Seleziona una risposta."
+  );
+
+  // Composizione della schermata
+  schermata.appendChild(intestazione);
+  schermata.appendChild(barra);
+  schermata.appendChild(riquadroDomanda);
+  schermata.appendChild(areaRisposte);
+  schermata.appendChild(messaggio);
+
+  // Inserisco la nuova schermata
+  app.appendChild(schermata);
+  //parte il timer
+  startTimer();
+}
+
+//  Funzione per mescolare arrey
+
+function shuffleArray(array) {
+  const risultato = [...array];
+  for (let i = risultato.length - 1; i > 0; i--) {
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    const temporaneo = risultato[i];
+    risultato[i] = risultato[j];
+    risultato[j] = temporaneo;
+  }
+  return risultato;
+}
+
+// start timer e stop timer
+
+function stopTimer() {
+  if (timerId !== null) {
+    clearInterval(timerId);
+    timerId = null;
+  }
+}
+
+function startTimer() {
+  stopTimer();
+
+  timeLeft = TIMER_DURATION;
+
+  const valoreTimer = document.querySelector("#timerValue");
+  valoreTimer.textContent = timeLeft;
+
+  timerId = setInterval(() => {
+    timeLeft--;
+    valoreTimer.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      stopTimer();
+      handleTimeUp();
+    }
+  }, 1000);
+}
+
+
+//funzione manageClick()  per gestire i click delle risposte.
+
+function manageClick(button, answer, domanda) {
+  // Blocca i click successivi
+  if (rispostaSelezionata) {
+    return;
+  }
+  // cosa fare dopo il click
+  rispostaSelezionata = true;
+  stopTimer();
+
+  const messaggio = document.querySelector(".feedback");
+
+  if (answer === domanda.correct_answer) {
+    score++;
+    button.classList.add("correct");
+    messaggio.textContent = "Risposta corretta!";
+  } else {
+    button.classList.add("wrong");
+    messaggio.textContent = "Risposta sbagliata!";
+    // 1. Crea un oggetto per salvare domanda risposta sbagliata e risposta relativa corretta
+    const errore = {
+      domanda: domanda.question,
+      rispostaData: answer,
+      rispostaCorretta: domanda.correct_answer
+    };
+    // 2. Aggiungi l'oggetto a risposteSbagliate
+    risposteSbagliate.push(errore);
+  }
+
+  setTimeout(advance, FEEDBACK_DELAY);
+}
+
+//funzione handleTimeUp cosa fare quando scade il tempo.
+
+function handleTimeUp() {
+
+  // Controlla se la domanda è già stata chiusa.
+  //    Se rispostaSelezionata è true, esci dalla funzione.
+
+  if (rispostaSelezionata === true) {
+    return;
+  }
+
+  // Segna la domanda come chiusa.
+
+  rispostaSelezionata = true;
+
+  // Recupera il paragrafo con classe "feedback".
+
+  const messaggio = document.querySelector(".feedback");
+
+  // Mostra un messaggio che comunichi
+  //    che il tempo è scaduto.
+
+  messaggio.textContent = "Tempo scaduto!";
+
+  // salvare risposta non data , errore.
+
+  const errore = {
+    domanda: shuffledQuestions[currentQuestion].question,
+    rispostaData: "Nessuna risposta",
+    rispostaCorretta: shuffledQuestions[currentQuestion].correct_answer
+  };
+
+  risposteSbagliate.push(errore);
+
+  // Programma l'avanzamento con setTimeout
+
+  setTimeout(advance, FEEDBACK_DELAY);
+
+}
+
+//function advance() passa alla domanda successiva
+
+function advance() {
+  // 1. Aumenta l'indice della domanda
+
+  currentQuestion++;
+
+  // 2. Reimposta rispostaSelezionata a false
+
+  rispostaSelezionata = false;
+
+  // 3. Se currentQuestion è uguale a TOTAL_QUESTIONS
+
+  if (currentQuestion === TOTAL_QUESTIONS) {
+
+    // cambia schermata in results
+
+    currentScreen = "results";
+
+  } else {
+
+    // cambia schermata in quiz
+
+    currentScreen = "quiz";
+  }
+
+  // 4. Aggiorna la schermata
+  render();
+}
+
+//pagina risultato.
 
 function renderResults() {
 
@@ -127,7 +510,6 @@ function renderResults() {
 
   /* servE il n.ro di doamande-totali(TOTAL_QUESTIONS) e quello del punteggio realizzato(score).
   le risposte sbagliate me le calcolo sottraendo TOTAL_QUESTIONS - score */
-
 
 
   //controllo il risultato del quiz 
@@ -173,7 +555,7 @@ function renderResults() {
   correctNumb.classList.add(`correct`);
   incorrectNumb.classList.add(`wrong`);
   containerbar.appendChild(correctNumb);
-  containerbar2.appendChild(incorrectNumb); 
+  containerbar2.appendChild(incorrectNumb);
 
 
   //passo al button per il reset del quiz
@@ -183,13 +565,12 @@ function renderResults() {
   app.appendChild(reset);
   reset.addEventListener(`click`, function () { //aggiungo evento al suo click 
     currentScreen = "welcome"; //gli faccio cambiare il valore della variabile currentScreen
-
-    // alert(`Quiz resettato, pronto per ricominciare?`)
-
-    render()
-
+    alert(`Quiz resettato, pronto per ricominciare?`);
+    render();
   })
 
 }
 
-renderResults();
+////fine pagina risultato.
+
+render();
