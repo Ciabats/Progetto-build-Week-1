@@ -152,6 +152,7 @@ function render() {
   }
 }
 
+
 // schermata iniziale: far funzionare il pulsante Inizia.
 
 function renderWelcome() {
@@ -562,7 +563,16 @@ function renderResults() {
   incorrectNumb.classList.add(`wrong`);
   containerbar.appendChild(correctNumb);
   containerbar2.appendChild(incorrectNumb);
-
+ 
+  const correctionSection = document.createElement("section");
+  correctionSection.classList.add("wrong-answers-container");
+  const correctionTitle = document.createElement("h3");
+  correctionTitle.textContent = "Correzione delle risposte";
+  const correctionList = document.createElement("div");
+  correctionList.id = "wrongAnswersList";
+  correctionSection.append(correctionTitle, correctionList);
+  app.appendChild(correctionSection);
+  renderWrongAnswers(correctionList);
 
   //passo al button per il reset del quiz
   const reset = document.createElement(`button`) //creo il button per il reset del quiz
@@ -575,6 +585,35 @@ function renderResults() {
     render();
   })
 
+}
+
+function renderWrongAnswers(container) {
+  if (risposteSbagliate.length === 0) {
+    const message = document.createElement("p");
+    message.textContent = "Ottimo lavoro! Hai risposto correttamente a tutte le domande.";
+    container.appendChild(message);
+    return;
+  }
+
+  risposteSbagliate.forEach((item) => {
+    const card = document.createElement("article");
+    card.classList.add("wrong-item");
+
+    const question = document.createElement("p");
+    question.classList.add("wrong-question");
+    question.textContent = item.domanda;
+
+    const userChoice = document.createElement("p");
+    userChoice.classList.add("wrong-user-choice");
+    userChoice.textContent = `La tua risposta: ${item.rispostaData}`;
+
+    const correctChoice = document.createElement("p");
+    correctChoice.classList.add("wrong-correct-choice");
+    correctChoice.textContent = `Risposta corretta: ${item.rispostaCorretta}`;
+
+    card.append(question, userChoice, correctChoice);
+    container.appendChild(card);
+  });
 }
 
 ////fine pagina risultato.

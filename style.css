@@ -110,7 +110,46 @@ body {
     color: #e70909;
 }
 
+/* CORREZIONE RISPOSTE SBAGLIATE */
+.wrong-answers-container {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
 
+.wrong-answers-container h3 {
+  font-size: 1.1rem;
+  color: #f87171;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.wrong-item {
+  background: rgba(185, 28, 28, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.wrong-question {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.wrong-user-choice {
+  font-size: 0.85rem;
+  color: #f87171;
+  margin-bottom: 2px;
+}
+
+.wrong-correct-choice {
+  font-size: 0.85rem;
+  color: #4ade80;
+  font-weight: 600;
+}
 
 
 
@@ -199,7 +238,7 @@ body {
 }
 
 
-/*Laura ho messo le due classi staccate perche  e lunico medo che conosco pe risolve :3*/
+
 .quizRound {
     font-size: 1.35rem;
     font-weight: 600;
@@ -216,7 +255,7 @@ body {
     font-family: 'Cinzel', serif;
 }
 
-/* lo schifo in fondo seleziona una risposta*/
+
 .feedback {
     color: #d4af37;
     font-family: 'Cinzel', serif;
