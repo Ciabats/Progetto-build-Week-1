@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,12 +9,9 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    background: #0b091a url("assets/bg.jpg") center / cover no-repeat fixed;
+    background: #0b091a url("assets/background.jpeg") center / cover no-repeat fixed;
     color: #ffffff;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 24px;
 }
 
@@ -21,6 +20,8 @@ body {
     width: 100%;
     max-width: 720px;
     margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: left;
 }
 
@@ -38,10 +39,12 @@ body {
     background: rgba(20, 16, 43, 0.95);
     border: 1.5px solid #2a2254;
     border-radius: 16px;
-    padding: 40px;
     max-width: 720px;
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(25, 6, 234, 0.15);
+    padding: clamp(18px, 5.5vw, 40px);
 }
 
 #headerWelcome {
@@ -50,6 +53,9 @@ body {
     font-weight: 700;
     color: #ffffff;
     letter-spacing: 0.5px;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    line-height: 1.25;
 }
 
 #paragraphWelcome {
@@ -58,6 +64,8 @@ body {
     color: #b4b0cd;
     font-size: 1.1rem;
     line-height: 1.5;
+    font-family: 'Cinzel', serif;
+    text-align: center;
 }
 
 
@@ -69,11 +77,6 @@ body {
 
 
 
-#listWelcome {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 34px;
-}
 
 #listWelcome {
     position: relative;
@@ -81,14 +84,25 @@ body {
     margin-bottom: 14px;
     font-size: 1.05rem;
     color: #e2e0ed;
+    font-family: 'Cinzel', serif;
 }
 
-#ullistWelcome::after {
-    content: "♦️";
+#listWelcome li {
+    list-style: none;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+#listWelcome li::before {
+    content: "♦";
     position: absolute;
+    top: 50%;
     left: 0;
-    color: #d4af37;
-    font-size: 1.1rem;
+    transform: translateY(calc(-50% - 2px));
+    color: #ff4081;
+    font-size: 1.2rem;
 }
 
 
@@ -104,7 +118,6 @@ body {
 
 
 /*BOTTONE*/
-
 #aswercoretto {
     background-color: green;
 
@@ -131,6 +144,9 @@ body {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(25, 6, 234, 0.3);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #buttonIdWelcome:hover {
@@ -138,20 +154,25 @@ body {
     color: #1906ea;
     border-color: #ffffff;
     box-shadow: 0 6px 20px rgba(25, 6, 234, 0.5);
-    transform: translateY(-2px);/
+    transform: translateY(-2px);
 }
 
 #buttonIdWelcome:active {
     transform: translateY(0);
 }
 
+
+
+
+
+
 /* --- QUIZ SCREEN (STILE TV GAME SHOW) --- */
 
-#quiz {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.quizTop {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
     width: 100%;
     position: relative;
     margin-bottom: 16px;
@@ -163,9 +184,10 @@ body {
     padding: 6px 24px;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    row-gap: 4px;
 }
 
-.question-box {
+.questionBox {
     width: 100%;
     background: linear-gradient(180deg, #182247 0%, #0d142e 100%);
     border: 2px solid #4f6ca8;
@@ -176,54 +198,94 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
-.question-text {
+
+/*Laura ho messo le due classi staccate perche  e lunico medo che conosco pe risolve :3*/
+.quizRound {
     font-size: 1.35rem;
     font-weight: 600;
     line-height: 1.4;
     color: #ffffff;
+    font-family: 'Cinzel', serif;
 }
 
-.quiz-body {
+.score-box {
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+}
+
+/* lo schifo in fondo seleziona una risposta*/
+.feedback {
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
+    margin-top: 25px;
+    min-height: 1.5em;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Domanda testo */
+.questionText {
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.08rem, 2.6vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+
+
+/*posizone timer*/
+.score {
     position: relative;
     width: 100%;
 }
 
-.options-grid {
+
+
+/*disposizione a griglia */
+.answersArea {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px clamp(64px, 10vw, 88px);
+    position: relative;
     width: 100%;
 }
 
-@media (max-width: 640px) {
-    .options-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.btn-option {
+/* riquadri risposte */
+.answer {
     background: linear-gradient(180deg, #172145 0%, #0d1430 100%);
     border: 2px solid #3d5691;
     border-radius: 30px;
-    padding: 14px 20px;
     color: #ffffff;
-    font-size: 1.05rem;
     font-weight: 600;
-    display: flex;
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
     align-items: center;
     gap: 14px;
     cursor: pointer;
     transition: all 0.2s ease;
     width: 100%;
     text-align: left;
+    min-width: 0;
+    min-height: 72px;
+    padding: 12px 16px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1rem;
 }
 
-.btn-option:hover:not(:disabled) {
+.answer:hover:not(:disabled) {
     border-color: #fbbf24;
     background: linear-gradient(180deg, #223166 0%, #131e47 100%);
 }
 
-.option-prefix {
+
+/* lettere[A,B,C,D] cerchio giallo*/
+.answerLetter {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -231,34 +293,42 @@ body {
     color: #0b1124;
     font-weight: 800;
     font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    font-family: 'Cinzel', serif;
 }
 
+/*CENTRA LETTERE*/
 .option-label {
-    flex-grow: 1;
+    min-width: 0;
 }
 
-.btn-option.correct {
+
+
+/*CORRETTO*/
+.btn-option.correct,
+.answer.correct {
     background: linear-gradient(180deg, #15803d 0%, #0f5127 100%) !important;
     border-color: #4ade80 !important;
     color: #ffffff !important;
 }
 
-.btn-option.correct .option-prefix {
+.btn-option.correct .option-prefix,
+.answer.correct .answerLetter {
     background: #4ade80;
     color: #062e12;
 }
 
-.btn-option.wrong {
+/*SBAGLIATO*/
+.btn-option.wrong,
+.answer.wrong {
     background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%) !important;
     border-color: #fca5a5 !important;
     color: #ffffff !important;
 }
 
-.btn-option.wrong .option-prefix {
+.btn-option.wrong .option-prefix,
+.answer.wrong .answerLetter {
     background: #fca5a5;
     color: #450a0a;
 }
@@ -271,37 +341,22 @@ body {
     transform: translate(-50%, -50%);
     z-index: 10;
     pointer-events: none;
-}
 
-@media (max-width: 640px) {
-    #timerValue {
-        position: static;
-        transform: none;
-        margin: 16px auto;
-        display: flex;
-        justify-content: center;
-    }
-}
-
-#timerValue {
     width: 54px;
     height: 54px;
     border-radius: 50%;
     background: #0d1430;
     border: 3px solid #38bdf8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-}
 
-#timerValue {
     font-size: 1.25rem;
     font-weight: 800;
     color: #ffffff;
+    text-align: center;
+    line-height: 48px;
 }
 
-#timerValue {
+#timerValue.warning {
     border-color: #ef4444;
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
     animation: pulse-warn 0.8s infinite alternate;
@@ -309,10 +364,238 @@ body {
 
 @keyframes pulse-warn {
     from {
-        transform: scale(1);
+        transform: translate(-50%, -50%) scale(1);
     }
 
     to {
-        transform: scale(1.12);
+        transform: translate(-50%, -50%) scale(1.12);
     }
+}
+
+/*RISULTATO*/
+/*TITOLO*/
+.tileWelcome {
+    color: white;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    margin: 0% 0px 4% 0px;
+    font-size: 300%;
+}
+
+/* Percentuele */
+.score {
+    color: #d4af37;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 60px;
+    margin: 0px 0px 4% 0px;
+    -webkit-text-stroke: 0.1px #ffffff;
+}
+
+/* hai completato il quiz*/
+.subTitleResults {
+    color: #ffffff;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: large;
+}
+
+/*Bocciato*/
+.failed {
+    margin: 3%;
+    color: #9d0000;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+
+
+}
+
+
+
+/*Barra sfondo vuota  */
+.corret {
+    background-color: #565656;
+    border-radius: 30px;
+
+}
+
+/*risposte corrette riempimento barra*/
+.corretBar,
+.correctBar {
+    background-color: #d4af37;
+    border-radius: 30px;
+
+}
+
+
+
+/*Barra sfondo vuota risposte sbagliate  */
+.wrong {
+    background-color: #565656;
+    border-radius: 30px;
+
+}
+
+/*riempimenro barra risposte sbagliate*/
+.incorrectBar {
+    background-color: #d4af37;
+    border-radius: 30px;
+
+}
+
+
+
+
+#reset {
+    background: linear-gradient(135deg, #1906ea 0%, #0d0399 100%);
+    border: 1.5px solid #d4af37;
+    border-radius: 30px;
+    width: 140px;
+    padding: 12px 0;
+    margin-top: 10px;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(25, 6, 234, 0.3);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#reset:hover {
+    background: #ffffff;
+    color: #1906ea;
+    border-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(25, 6, 234, 0.5);
+    transform: translateY(-2px);
+}
+
+
+/* BARRA PROGRESSIVA DEL QUIZ */
+
+.progressTrack {
+    width: 100%;
+    height: 10px;
+    margin-bottom: 26px;
+    background-color: #101630;
+    border: 1px solid #3b4d82;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progressFill {
+    width: 10%;
+    height: 100%;
+    background-color: #d4af37;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+
+/* TESTO DEL CONTATORE E DEL PUNTEGGIO */
+
+.quizRound,
+.score-box {
+    max-width: 100%;
+}
+
+
+/* AREA DELLE RISPOSTE */
+
+.answersArea {
+    position: relative;
+}
+
+.answerText {
+    line-height: 1.35;
+    overflow-wrap: break-word;
+}
+
+.answer:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+
+/* TIMER CENTRALE TRA LE QUATTRO RISPOSTE */
+
+.timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 54px;
+    height: 54px;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.timerCore {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* EVIDENZIAZIONE DEI PULSANTI SELEZIONATI CON TASTIERA */
+
+.answer:focus-visible,
+#buttonIdWelcome:focus-visible,
+#reset:focus-visible {
+    outline: 3px solid #d4af37;
+}
+
+
+/* RISULTATO: PROMOSSO */
+
+.promoted {
+    margin: 3%;
+    color: #4ade80;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+
+/* CONTENITORI DELLE BARRE DEI RISULTATI */
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    margin: 15px auto;
+    background-color: #565656;
+    border: 1px solid #3b4d82;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+
+/* RIEMPIMENTO DELLE BARRE DEI RISULTATI */
+
+.correctBar,
+.incorrectBar {
+    height: 100%;
+    background-color: #d4af37;
+    transition: width 0.4s ease;
+}
+
+
+/* NUMERI DELLE RISPOSTE CORRETTE E SBAGLIATE */
+
+.container span {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background-color: transparent;
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: bold;
 }
