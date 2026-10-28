@@ -558,6 +558,9 @@ function renderResults() {
   containerbar2.appendChild(incorrectNumb);
 
 
+
+
+
   //passo al button per il reset del quiz
   const reset = document.createElement(`button`) //creo il button per il reset del quiz
   reset.id = "reset"; //assegno id 
