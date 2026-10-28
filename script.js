@@ -1,4 +1,4 @@
-  REGOLE
+  /*REGOLE
   - Codice in JavaScript moderno: solo const/let, mai var.
   - DOM: usa querySelector / querySelectorAll.
   - Eventi: usa addEventListener (mai onclick inline nell'HTML).
