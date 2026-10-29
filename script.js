@@ -414,10 +414,10 @@ function manageClick(button, answer, domanda) {
   if (answer === domanda.correct_answer) {
     score++;
     button.classList.add("correct");
-    messaggio.textContent = "Risposta corretta!";
+    messaggio.textContent = "L'accendiamo?";
   } else {
     button.classList.add("wrong");
-    messaggio.textContent = "Risposta sbagliata!";
+    messaggio.textContent = "L'accendiamo?";
     // 1. Crea un oggetto per salvare domanda risposta sbagliata e risposta relativa corretta
     const errore = {
       domanda: domanda.question,

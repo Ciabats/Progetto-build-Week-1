@@ -15,8 +15,7 @@ body {
     padding: 24px;
 }
 
-/* --- HEADER BRAND --- */
-/* --- HEADER BRAND --- */
+
 .brand {
     width: 100%;
     max-width: 720px;
@@ -35,7 +34,7 @@ body {
     transform: scale(1.05);
 }
 
-/* --- CONTAINER PRINCIPALE APP --- */
+
 #app {
     background: rgba(20, 16, 43, 0.95);
     border: 1.5px solid #2a2254;
@@ -111,7 +110,7 @@ body {
     color: #e70909;
 }
 
-/* CORREZIONE RISPOSTE SBAGLIATE */
+
 .wrong-answers-container {
   width: 100%;
   margin-top: 20px;
@@ -157,7 +156,7 @@ body {
 
 
 
-/*BOTTONE*/
+
 #aswercoretto {
     background-color: green;
 
@@ -206,7 +205,6 @@ body {
 
 
 
-/* --- QUIZ SCREEN (STILE TV GAME SHOW) --- */
 
 .quizTop {
     display: grid;
@@ -268,7 +266,7 @@ body {
     text-align: center;
 }
 
-/* Domanda testo */
+
 .questionText {
     color: #d4af37;
     font-family: 'Cinzel', serif;
@@ -280,7 +278,7 @@ body {
 
 
 
-/*posizone timer*/
+
 .score {
     position: relative;
     width: 100%;
@@ -288,7 +286,6 @@ body {
 
 
 
-/*disposizione a griglia */
 .answersArea {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -297,7 +294,6 @@ body {
     width: 100%;
 }
 
-/* riquadri risposte */
 .answer {
     background: linear-gradient(180deg, #172145 0%, #0d1430 100%);
     border: 2px solid #3d5691;
@@ -325,7 +321,6 @@ body {
 }
 
 
-/* lettere[A,B,C,D] cerchio giallo*/
 .answerLetter {
     width: 32px;
     height: 32px;
@@ -339,14 +334,14 @@ body {
     font-family: 'Cinzel', serif;
 }
 
-/*CENTRA LETTERE*/
+
 .option-label {
     min-width: 0;
 }
 
 
 
-/*CORRETTO*/
+
 .btn-option.correct,
 .answer.correct {
     background: linear-gradient(180deg, #15803d 0%, #0f5127 100%) !important;
@@ -360,7 +355,7 @@ body {
     color: #062e12;
 }
 
-/*SBAGLIATO*/
+
 .btn-option.wrong,
 .answer.wrong {
     background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%) !important;
@@ -374,7 +369,7 @@ body {
     color: #450a0a;
 }
 
-/* TIMER CENTRALE STILE GAME SHOW */
+
 #timerValue {
     position: absolute;
     top: 50%;
@@ -413,8 +408,7 @@ body {
     }
 }
 
-/*RISULTATO*/
-/*TITOLO*/
+
 .tileWelcome {
     color: white;
     text-align: center;
@@ -423,7 +417,7 @@ body {
     font-size: 300%;
 }
 
-/* Percentuele */
+
 .score {
     color: #d4af37;
     text-align: center;
@@ -433,7 +427,6 @@ body {
     -webkit-text-stroke: 0.1px #ffffff;
 }
 
-/* hai completato il quiz*/
 .subTitleResults {
     color: #ffffff;
     text-align: center;
@@ -441,7 +434,7 @@ body {
     font-size: large;
 }
 
-/*Bocciato*/
+
 .failed {
     margin: 3%;
     color: #9d0000;
@@ -454,14 +447,14 @@ body {
 
 
 
-/*Barra sfondo vuota  */
+
 .corret {
     background-color: #565656;
     border-radius: 30px;
 
 }
 
-/*risposte corrette riempimento barra*/
+
 .corretBar,
 .correctBar {
     background-color: #d4af37;
@@ -471,14 +464,13 @@ body {
 
 
 
-/*Barra sfondo vuota risposte sbagliate  */
 .wrong {
     background-color: #565656;
     border-radius: 30px;
 
 }
 
-/*riempimenro barra risposte sbagliate*/
+
 .incorrectBar {
     background-color: #d4af37;
     border-radius: 30px;
@@ -518,7 +510,6 @@ body {
 }
 
 
-/* BARRA PROGRESSIVA DEL QUIZ */
 
 .progressTrack {
     width: 100%;
@@ -539,7 +530,6 @@ body {
 }
 
 
-/* TESTO DEL CONTATORE E DEL PUNTEGGIO */
 
 .quizRound,
 .score-box {
@@ -547,7 +537,7 @@ body {
 }
 
 
-/* AREA DELLE RISPOSTE */
+
 
 .answersArea {
     position: relative;
@@ -564,7 +554,7 @@ body {
 }
 
 
-/* TIMER CENTRALE TRA LE QUATTRO RISPOSTE */
+
 
 .timer {
     position: absolute;
@@ -583,7 +573,7 @@ body {
 }
 
 
-/* EVIDENZIAZIONE DEI PULSANTI SELEZIONATI CON TASTIERA */
+
 
 .answer:focus-visible,
 #buttonIdWelcome:focus-visible,
@@ -592,7 +582,7 @@ body {
 }
 
 
-/* RISULTATO: PROMOSSO */
+
 
 .promoted {
     margin: 3%;
@@ -604,7 +594,7 @@ body {
 }
 
 
-/* CONTENITORI DELLE BARRE DEI RISULTATI */
+
 
 .container {
     position: relative;
@@ -618,7 +608,7 @@ body {
 }
 
 
-/* RIEMPIMENTO DELLE BARRE DEI RISULTATI */
+
 
 .correctBar,
 .incorrectBar {
@@ -628,7 +618,7 @@ body {
 }
 
 
-/* NUMERI DELLE RISPOSTE CORRETTE E SBAGLIATE */
+
 
 .container span {
     position: absolute;
