@@ -234,6 +234,35 @@ function renderResults() {
   const correctNumb = creaElemento("span", "correct", `${statoQuiz.score}/${TOTAL_QUESTIONS}`, "", containerbar);
   const incorrectNumb = creaElemento("span", "wrong", `${incorrect}/${TOTAL_QUESTIONS}`, "", containerbar2);
 
+  // Sezione correzioni
+  const sezioneCorrezioni = creaElemento("section", "correzioni", "", "", app);
+
+  creaElemento("h2", "titoloCorrezioni", "Correzioni", "", sezioneCorrezioni);
+
+  // Se non ci sono risposte sbagliate
+  if (statoQuiz.risposteSbagliate.length === 0) {
+    creaElemento("p", "nessunErrore", "Complimenti, nessun errore!", "", sezioneCorrezioni);
+  } else {
+
+    // Crea una card per ogni risposta sbagliata
+    statoQuiz.risposteSbagliate.forEach((errore, indice) => {
+
+      const card = creaElemento("article", "correctionCard", "", "", sezioneCorrezioni);
+
+      // Domanda
+      creaElemento("h3", "correctionQuestion", `${indice + 1}. ${errore.domanda}`, "", card);
+
+      // Contenitore delle risposte
+      const risposte = creaElemento("div", "correctionAnswers", "", "", card);
+
+      // Risposta data dall'utente
+      creaElemento("p", "wrongAnswer", `La tua risposta: ${errore.rispostaData}`, "", risposte);
+
+      // Risposta corretta
+      creaElemento("p", "correctAnswer", `Risposta corretta: ${errore.rispostaCorretta}`, "", risposte);
+    });
+  }
+
   //passo al button per il reset del quiz
   const reset = creaElemento("button", "button", "Ricomincia", "reset", app); //creo il button per il reset del quiz
 
