@@ -9,13 +9,13 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  background: #0b091a url("assets/bg.jpg") center / cover no-repeat fixed;
-  color: #ffffff;
+  background: #0b091a url("assets/background.jpeg") center / cover no-repeat fixed;
+  color: #0c0c0c;
   min-height: 100vh;
   padding: 24px;
 }
 
-/* --- HEADER BRAND --- */
+
 .brand {
   width: 100%;
   max-width: 720px;
@@ -34,7 +34,7 @@ body {
   transform: scale(1.05);
 }
 
-/* --- CONTAINER PRINCIPALE APP --- */
+
 #app {
   background: rgba(20, 16, 43, 0.95);
   border: 1.5px solid #2a2254;
@@ -111,13 +111,52 @@ body {
 }
 
 
+.wrong-answers-container {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.wrong-answers-container h3 {
+  font-size: 1.1rem;
+  color: #f87171;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.wrong-item {
+  background: rgba(185, 28, 28, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.wrong-question {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.wrong-user-choice {
+  font-size: 0.85rem;
+  color: #f87171;
+  margin-bottom: 2px;
+}
+
+.wrong-correct-choice {
+  font-size: 0.85rem;
+  color: #4ade80;
+  font-weight: 600;
+}
 
 
 
 
 
 
-/*BOTTONE*/
+
 #aswercoretto {
   background-color: green;
 
@@ -166,7 +205,6 @@ body {
 
 
 
-/* --- QUIZ SCREEN (STILE TV GAME SHOW) --- */
 
 .quizTop {
   display: grid;
@@ -199,7 +237,7 @@ body {
 }
 
 
-/*Laura ho messo le due classi staccate perche  e lunico medo che conosco pe risolve :3*/
+
 .quizRound {
   font-size: 1.35rem;
   font-weight: 600;
@@ -216,9 +254,10 @@ body {
   font-family: 'Cinzel', serif;
 }
 
-/* lo schifo in fondo seleziona una risposta*/
+
 .feedback {
   color: #d4af37;
+
   font-family: 'Cinzel', serif;
   margin-top: 25px;
   min-height: 1.5em;
@@ -227,7 +266,7 @@ body {
   text-align: center;
 }
 
-/* Domanda testo */
+
 .questionText {
   color: #d4af37;
   font-family: 'Cinzel', serif;
@@ -239,7 +278,7 @@ body {
 
 
 
-/*posizone timer*/
+
 .score {
   position: relative;
   width: 100%;
@@ -247,7 +286,6 @@ body {
 
 
 
-/*disposizione a griglia */
 .answersArea {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -256,7 +294,6 @@ body {
   width: 100%;
 }
 
-/* riquadri risposte */
 .answer {
   background: linear-gradient(180deg, #172145 0%, #0d1430 100%);
   border: 2px solid #3d5691;
@@ -284,7 +321,6 @@ body {
 }
 
 
-/* lettere[A,B,C,D] cerchio giallo*/
 .answerLetter {
   width: 32px;
   height: 32px;
@@ -298,14 +334,14 @@ body {
   font-family: 'Cinzel', serif;
 }
 
-/*CENTRA LETTERE*/
+
 .option-label {
   min-width: 0;
 }
 
 
 
-/*CORRETTO*/
+
 .btn-option.correct,
 .answer.correct {
   background: linear-gradient(180deg, #15803d 0%, #0f5127 100%) !important;
@@ -319,7 +355,7 @@ body {
   color: #062e12;
 }
 
-/*SBAGLIATO*/
+
 .btn-option.wrong,
 .answer.wrong {
   background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%) !important;
@@ -333,7 +369,7 @@ body {
   color: #450a0a;
 }
 
-/* TIMER CENTRALE STILE GAME SHOW */
+
 #timerValue {
   position: absolute;
   top: 50%;
@@ -372,8 +408,7 @@ body {
   }
 }
 
-/*RISULTATO*/
-/*TITOLO*/
+
 .tileWelcome {
   color: white;
   text-align: center;
@@ -382,7 +417,7 @@ body {
   font-size: 300%;
 }
 
-/* Percentuele */
+
 .score {
   color: #d4af37;
   text-align: center;
@@ -392,7 +427,6 @@ body {
   -webkit-text-stroke: 0.1px #ffffff;
 }
 
-/* hai completato il quiz*/
 .subTitleResults {
   color: #ffffff;
   text-align: center;
@@ -400,7 +434,7 @@ body {
   font-size: large;
 }
 
-/*Bocciato*/
+
 .failed {
   margin: 3%;
   color: #9d0000;
@@ -413,14 +447,14 @@ body {
 
 
 
-/*Barra sfondo vuota  */
+
 .corret {
   background-color: #565656;
   border-radius: 30px;
 
 }
 
-/*risposte corrette riempimento barra*/
+
 .corretBar,
 .correctBar {
   background-color: #d4af37;
@@ -430,14 +464,13 @@ body {
 
 
 
-/*Barra sfondo vuota risposte sbagliate  */
 .wrong {
   background-color: #565656;
   border-radius: 30px;
 
 }
 
-/*riempimenro barra risposte sbagliate*/
+
 .incorrectBar {
   background-color: #d4af37;
   border-radius: 30px;
@@ -477,7 +510,6 @@ body {
 }
 
 
-/* BARRA PROGRESSIVA DEL QUIZ */
 
 .progressTrack {
   width: 100%;
@@ -498,7 +530,6 @@ body {
 }
 
 
-/* TESTO DEL CONTATORE E DEL PUNTEGGIO */
 
 .quizRound,
 .score-box {
@@ -506,7 +537,7 @@ body {
 }
 
 
-/* AREA DELLE RISPOSTE */
+
 
 .answersArea {
   position: relative;
@@ -523,7 +554,7 @@ body {
 }
 
 
-/* TIMER CENTRALE TRA LE QUATTRO RISPOSTE */
+
 
 .timer {
   position: absolute;
@@ -542,7 +573,7 @@ body {
 }
 
 
-/* EVIDENZIAZIONE DEI PULSANTI SELEZIONATI CON TASTIERA */
+
 
 .answer:focus-visible,
 #buttonIdWelcome:focus-visible,
@@ -551,7 +582,7 @@ body {
 }
 
 
-/* RISULTATO: PROMOSSO */
+
 
 .promoted {
   margin: 3%;
@@ -563,7 +594,7 @@ body {
 }
 
 
-/* CONTENITORI DELLE BARRE DEI RISULTATI */
+
 
 .container {
   position: relative;
@@ -577,7 +608,7 @@ body {
 }
 
 
-/* RIEMPIMENTO DELLE BARRE DEI RISULTATI */
+
 
 .correctBar,
 .incorrectBar {
@@ -587,7 +618,7 @@ body {
 }
 
 
-/* NUMERI DELLE RISPOSTE CORRETTE E SBAGLIATE */
+
 
 .container span {
   position: absolute;
