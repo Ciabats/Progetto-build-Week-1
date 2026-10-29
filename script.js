@@ -17,6 +17,12 @@ import {
 
 const app = document.querySelector("#app");
 
+//creo una variabile che contiene l'audio con il volume al 90%
+
+const audio = new Audio("./soundtrack.mp3");
+audio.loop = true;
+audio.volume = 0.9;
+
 // render(): capire come scegliere la schermata da mostrare.
 
 // Funzione render:
@@ -73,7 +79,7 @@ function renderWelcome() {
   const element3 = creaElemento("li", "", "Il quiz dura circa 4 minuti.", "", list);
 
   // Pulsante Inizia
-  const button = creaElemento("button", "button", "L'accendiamo?", "buttonIdWelcome", app);
+  const button = creaElemento("button", "button", "Inizia", "buttonIdWelcome", app);
   button.type = "button";
 
   // Gestione del click del pulsante iniza
@@ -84,6 +90,7 @@ function renderWelcome() {
     statoQuiz.risposteSbagliate = [];
     statoQuiz.rispostaSelezionata = false;
     statoQuiz.currentScreen = "quiz";
+    audio.play();
     render();
   });
 }
@@ -202,6 +209,10 @@ function advance() {
 //  le risposte sbagliate me le calcolo sottraendo TOTAL_QUESTIONS - score
 
 function renderResults() {
+
+  //fermo l'audio
+  audio.pause();
+  audio.currentTime = 0;
 
   const title = creaElemento("h1", "titlewelcome", "risultato", "", app);
 
