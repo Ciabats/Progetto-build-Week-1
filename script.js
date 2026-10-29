@@ -1,9 +1,8 @@
-/*
-  REGOLE
-  - Codice in JavaScript moderno: solo const/let, mai var.
-  - DOM: usa querySelector / querySelectorAll.
-  - Eventi: usa addEventListener (mai onclick inline nell'HTML).
-  - Pattern: stato → render → eventi.
+/*REGOLE
+- Codice in JavaScript moderno: solo const/let, mai var.
+- DOM: usa querySelector / querySelectorAll.
+- Eventi: usa addEventListener (mai onclick inline nell'HTML).
+- Pattern: stato → render → eventi.
 */
 
 /*
@@ -18,6 +17,7 @@ const QUESTIONS = [
     question: "Cosa significa l'acronimo CPU?",
     correct_answer: "Central Processing Unit",
     incorrect_answers: [
+      
       "Central Process Unit",
       "Computer Personal Unit",
       "Central Processor Unit",
@@ -93,6 +93,10 @@ let timeLeft = TIMER_DURATION;
 let shuffledQuestions = []; // variabili mescolate per la partita in corso
 let rispostaSelezionata = false;
 let risposteSbagliate = [];
+
+
+
+
 /* SCRIVI QUI LE TUE FUNZIONI:
    - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
    - renderWelcome() per la schermata iniziale con button Inizia
@@ -237,6 +241,9 @@ function renderWelcome() {
 // Mostrare la prima domanda: recuperarla dall'array e inserirla nel DOM.
 // renderQuiz
 
+// Mostrare la prima domanda: recuperarla dall'array e inserirla nel DOM.
+// renderQuiz
+
 function renderQuiz() {
 
   const domanda = shuffledQuestions[currentQuestion];
@@ -265,6 +272,9 @@ function renderQuiz() {
   // Barra di avanzamento 
   const barra = creaElemento("div", "progressTrack");
   const riempimento = creaElemento("div", "progressFill");
+
+  // --- RIGA AGGIUNTA PER AGGIORNARE LA BARRA ---
+  riempimento.style.width = `${((currentQuestion + 1) / TOTAL_QUESTIONS) * 100}%`;
 
   barra.appendChild(riempimento);
 
@@ -338,6 +348,7 @@ function renderQuiz() {
   startTimer();
 }
 
+
 //  Funzione per mescolare arrey
 
 function shuffleArray(array) {
@@ -406,7 +417,7 @@ function manageClick(button, answer, domanda) {
     messaggio.textContent = "Risposta corretta!";
   } else {
     button.classList.add("wrong");
-    messaggio.textContent = "Risposta sbagliata!";
+    messaggio.textContent = "L'accendiamo ?";
     // 1. Crea un oggetto per salvare domanda risposta sbagliata e risposta relativa corretta
     const errore = {
       domanda: domanda.question,
@@ -538,6 +549,19 @@ function renderResults() {
   const containerbar2 = document.createElement(`div`);
   const correctBar = document.createElement(`div`); //creo il div progressBar delle risposte corrette
   const incorrectBar = document.createElement(`div`); //creo il div progressBar delle risposte sbagliaste
+  const trueDescription = creaElemento(
+    `p`,
+    `description`,
+    `Corrette:`
+  );
+  const wrongDescription = creaElemento(
+    `p`,
+    `description`,
+    `Sbagliate:`
+  );
+
+
+
 
   //applico le classi
   correctBar.classList.add(`correctBar`); //aggiungo classe per successiva stitlizzazione
@@ -548,7 +572,9 @@ function renderResults() {
 
   correctBar.style.width = (score / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
   incorrectBar.style.width = (incorrect / TOTAL_QUESTIONS) * 100 + `%`; //calcolo la lunghezza in % della barra delle risposte corrette
+  app.appendChild(trueDescription);
   app.appendChild(containerbar);
+  app.appendChild(wrongDescription);
   app.appendChild(containerbar2);
   containerbar.appendChild(correctBar);
   containerbar2.appendChild(incorrectBar);
@@ -563,7 +589,7 @@ function renderResults() {
   incorrectNumb.classList.add(`wrong`);
   containerbar.appendChild(correctNumb);
   containerbar2.appendChild(incorrectNumb);
- 
+
   const correctionSection = document.createElement("section");
   correctionSection.classList.add("wrong-answers-container");
   const correctionTitle = document.createElement("h3");
@@ -619,3 +645,6 @@ function renderWrongAnswers(container) {
 ////fine pagina risultato.
 
 render();
+
+
+
