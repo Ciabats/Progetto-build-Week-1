@@ -70,7 +70,7 @@ function renderWelcome() {
 
   const element2 = creaElemento("li", "", "Una volta cliccata una risposta, la domanda è chiusa.", "", list);
 
-  const element3 = creaElemento("li", "", "Il quiz dura circa 3 minuti.", "", list);
+  const element3 = creaElemento("li", "", "Il quiz dura circa 4 minuti.", "", list);
 
   // Pulsante Inizia
   const button = creaElemento("button", "button", "L'accendiamo?", "buttonIdWelcome", app);
@@ -209,6 +209,14 @@ function renderResults() {
   const displayScore = Math.round((statoQuiz.score / TOTAL_QUESTIONS) * 100);
   const displayResult = creaElemento("p", "score", `${displayScore}%`, "", app);
   const subTitle = creaElemento("h4", "subTitleResults", "hai completato il quiz", "", app);
+
+  // Video di Gerry Scotti
+  const video = creaElemento("iframe", "videoRisultato", "", "", app);
+
+  video.src = "https://www.youtube.com/embed/X81aVptM2tc?autoplay=1&controls=0&modestbranding=1&iv_load_policy=3";
+  video.title = "Video finale";
+  video.allow = "autoplay; encrypted-media";
+  video.allowFullscreen = false;
 
   //controllo il risultato del quiz 
 

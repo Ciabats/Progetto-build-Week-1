@@ -630,3 +630,11 @@ body {
   font-size: 16px;
   font-weight: bold;
 }
+
+.videoRisultato {
+  display: block;
+  width: 258px;
+  height: 185px;
+  margin: 20px auto;
+  border: none;
+}
