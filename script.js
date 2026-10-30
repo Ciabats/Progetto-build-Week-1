@@ -17,6 +17,12 @@ import {
 
 const app = document.querySelector("#app");
 
+//creo una variabile che contiene l'audio con il volume al 90%
+
+const audio = new Audio(".assets/soundtrack.mp3");
+audio.loop = true;
+audio.volume = 0.9;
+
 // render(): capire come scegliere la schermata da mostrare.
 
 // Funzione render:
@@ -70,10 +76,10 @@ function renderWelcome() {
 
   const element2 = creaElemento("li", "", "Una volta cliccata una risposta, la domanda è chiusa.", "", list);
 
-  const element3 = creaElemento("li", "", "Il quiz dura circa 3 minuti.", "", list);
+  const element3 = creaElemento("li", "", "Il quiz dura circa 4 minuti.", "", list);
 
   // Pulsante Inizia
-  const button = creaElemento("button", "button", "L'accendiamo?", "buttonIdWelcome", app);
+  const button = creaElemento("button", "button", "Inizia", "buttonIdWelcome", app);
   button.type = "button";
 
   // Gestione del click del pulsante iniza
@@ -84,6 +90,7 @@ function renderWelcome() {
     statoQuiz.risposteSbagliate = [];
     statoQuiz.rispostaSelezionata = false;
     statoQuiz.currentScreen = "quiz";
+    audio.play();
     render();
   });
 }
@@ -203,12 +210,24 @@ function advance() {
 
 function renderResults() {
 
+  //fermo l'audio
+  audio.pause();
+  audio.currentTime = 0;
+
   const title = creaElemento("h1", "titlewelcome", "risultato", "", app);
 
   const incorrect = TOTAL_QUESTIONS - statoQuiz.score;
   const displayScore = Math.round((statoQuiz.score / TOTAL_QUESTIONS) * 100);
   const displayResult = creaElemento("p", "score", `${displayScore}%`, "", app);
   const subTitle = creaElemento("h4", "subTitleResults", "hai completato il quiz", "", app);
+
+  // Video di Gerry Scotti
+  const video = creaElemento("iframe", "videoRisultato", "", "", app);
+
+  video.src = "https://www.youtube.com/embed/X81aVptM2tc?autoplay=1&controls=0&modestbranding=1&iv_load_policy=3";
+  video.title = "Video finale";
+  video.allow = "autoplay; encrypted-media";
+  video.allowFullscreen = false;
 
   //controllo il risultato del quiz 
 
@@ -283,3 +302,4 @@ function renderResults() {
 ////fine pagina risultato.
 
 render();
+

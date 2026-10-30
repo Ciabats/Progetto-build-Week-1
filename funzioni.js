@@ -73,7 +73,7 @@ export const QUESTIONS = [
 // costanti del quiz
 export const TOTAL_QUESTIONS = QUESTIONS.length;
 export const PASS_THRESHOLD = 60;
-export const FEEDBACK_DELAY = 3500;
+export const FEEDBACK_DELAY = 1500;
 export const TIMER_DURATION = 20;
 
 //Stato del quiz 
