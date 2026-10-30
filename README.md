@@ -14,7 +14,7 @@ L'interfaccia richiama un quiz televisivo, con grafica nei colori EPICODE, timer
 
 | Welcome | Quiz | Results |
 |---|---|---|
-| ![Schermata Welcome](docs/welcome.png) | ![Schermata Quiz](docs/quiz.png) | ![Schermata Results](docs/results.png) |
+| ![Schermata Welcome](docs/Welcome.png) | ![Schermata Quiz](docs/Quiz.png) | ![Schermata Results](docs/Results.png) |
 
 ## Come Funziona
 
