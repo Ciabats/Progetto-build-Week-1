@@ -64,6 +64,21 @@ L'interfaccia richiama un quiz televisivo, con grafica nei colori EPICODE, timer
 | `manageClick(button, answer, domanda, advance)` | Gestisce la risposta selezionata, verifica la correttezza, aggiorna il punteggio e registra eventuali errori. |
 | `advance()` | Passa alla domanda successiva o alla schermata dei risultati. |
 
+## Focus JavaScript
+Divisione del codice JavaSCript
+
+| File | Di cosa si occupa |
+|---|---|
+| scipt.js | si occupa della render delle tre schermate principali(`render()`), `advance()`, dell'implementazione dell'audio e gli eventi dei pulsanti |
+| funzioni.js | si occupa delle funzioni per la generazione delle domande, la gestione del timer, dei click dell'utente | 
+
+### Perchè due file:
+- **Ad ogni file è assegnato un compito.** La "logica" del progetto è contenuta in `funzioni.js` dividendola dalla creazione del DOM contenuta in `script.js`.
+- **Export** e **import.** Per ogni file, con `export`, dichiara cosa mette a disposizione degli altri file e con `import` le richiama.
+
+## Organizzazione
+Il progetto è stato sviluppato in gruppo, sono stati creati branch per ogni partecipante in modo da poter lavorare anche in maniera asincrona per poi eseguire il merge verso `main` e risolvere eventuali conflitti.  
+
 ## Contributi
 
 | Nome | Area di lavoro | Profilo GitHub |
